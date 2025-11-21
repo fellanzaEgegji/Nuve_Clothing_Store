@@ -45,3 +45,15 @@
 .hero img {
     width: 100%;
 }
+
+/* Stilizimi i video-s */
+.video {
+    width: 100%;
+    height: 100vh;
+    padding: 0px;
+}
+
+.video video{
+    width: 100%;
+    height: 100vh;
+}
