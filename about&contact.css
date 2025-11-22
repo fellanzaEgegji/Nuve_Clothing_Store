@@ -1,3 +1,6 @@
+:root{
+    --gray: #EAE9EB;
+}
 /* Stilizimi i header-it */
 .header {
     padding: 15px 100px;
@@ -38,24 +41,31 @@
     height: 30px;
 }
 
-/* Stilizimi i hero-it */
-.hero {
-    width: 100%;
-}
-.hero img {
-    width: 100%;
+/* Stilizimi i main */
+.main {
+    background-color: var(--gray);
 }
 
-/* Stilizimi i video-s */
-.video {
-    width: 100%;
-    height: 100vh;
-    padding: 0px;
+.main .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
 }
 
-.video video{
-    width: 100%;
+.main img {
     height: 100vh;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+}
+
+.text p {
+    font-size: large;
 }
 
 /* Stilizimi i footer-it */
@@ -63,7 +73,7 @@
     margin: 0px;
 }
 
-.container {
+.footer .container {
     margin: 20px 150px;
     display: flex;
     justify-content: space-between;
