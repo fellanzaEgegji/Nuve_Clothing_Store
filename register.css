@@ -1,3 +1,6 @@
+:root{
+    --gray: #EAE9EB;
+}
 /*Header*/
 .header {
     padding: 15px 100px;
@@ -42,6 +45,7 @@
     max-width: 420px;
     margin: 40px auto;
     background-color: white;
+    border: 1px solid #ccc;
     padding: 35px;
     border-radius: 10px;
 }
@@ -92,4 +96,61 @@
 }
 .register-button:hover{
     background-color: #333;
+}
+.signin-text{
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 15px;
+}
+.signin-text a{
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+/* Footer*/
+.footer {
+    margin: 0px;
+}
+
+.footer .container {
+    margin: 20px 150px;
+    display: flex;
+    justify-content: space-between;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: light;
+}
+
+.socials {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.socials img {
+    width: 30px;
+    padding-right: 10px;
+}
+
+.list ul {
+    padding-left: 0px;
+    align-items: flex-start;
+    list-style: none;
+}
+
+.list ul li {
+    padding-bottom: 10px;
+}
+
+.list ul a {
+    text-decoration: none;
+    color: black;
+}
+
+.copyright {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: var(--gray);
+    padding: 5px;
 }
