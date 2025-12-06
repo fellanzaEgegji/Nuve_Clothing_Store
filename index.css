@@ -46,6 +46,18 @@
     width: 100%;
 }
 
+#previous, #next {
+    position: absolute;
+    top: 50%;
+    background: none;
+    border: none;
+    width: 55px;
+    cursor: pointer;
+}
+
+#previous { left: 10px; }
+#next { right: 10px; }
+
 /* Stilizimi i video-s */
 .video {
     width: 100%;
