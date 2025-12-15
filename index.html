@@ -2,13 +2,13 @@
 <html>
     <head>
         <title>Nuvé Clothing</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
         <!-- Struktura e Header-it -->
-        <!-- To Do: Funksionalizimi i search me JS -->
         <section class="header">
-            <a href="index.html"><img src="library/logo.png"></a>
+            <a href="index.html" class="logo"><img src="library/logo.png"></a>
             <ul>
                 <li><a href="">Meshkuj</a></li>
                 <li><a href="">Femra</a></li>
@@ -18,6 +18,11 @@
                 <a href=""><img src="library/search.png" alt=""></a>
                 <a href="register.html"><img src="library/profile.png" alt=""></a>
                 <a href=""><img src="library/cart.png" alt=""></a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </section>
 
@@ -29,9 +34,8 @@
         </section>
 
         <!-- Struktura e video-s -->
-        <!-- To Do: Nisja e videos kur behet scroll (Me JS) -->
         <section class="video">
-            <video id="video" autoplay muted playsinline><source src="library/video.webm"></video>
+            <video id="video" loop autoplay muted playsinline><source src="library/video.webm"></video>
         </section>
 
         <!-- Struktura e footer-it -->
