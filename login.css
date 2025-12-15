@@ -73,7 +73,7 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .login-button{
-    margin: 10px;
+    margin: 5px 0;
     width: 100%;
     padding: 12px;
     background: black;
@@ -129,9 +129,26 @@
     text-decoration: none;
     font-weight: bold;
 }
+.error {
+   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   color: #b00020;
+   font-weight: bold;
+   font-size: 13px;
+   margin-top: 6px
+}
+
+.success {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #0a7a3a;
+    font-weight: bolder;
+    font-size: 18px;
+    margin-top: 10px;
+    text-align: center;
+}
 /* Footer*/
 .footer {
     margin: 0px;
+    border-top:1px #ccc solid;
 }
 
 .footer .container {
