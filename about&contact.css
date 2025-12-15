@@ -13,6 +13,7 @@
 .header img {
     height: 50px;
 }
+
 .header ul {
     display: flex;
     list-style: none;
@@ -41,6 +42,19 @@
     height: 30px;
 }
 
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: black;
+}
+
 /* Stilizimi i main */
 .main {
     background-color: var(--gray);
@@ -51,10 +65,11 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 30px;
+    align-items: center;
 }
 
 .main img {
-    height: 100vh;
+    width: 50%;
 }
 
 .text {
@@ -161,4 +176,79 @@
     display: flex;
     background-color: var(--gray);
     padding: 5px;
+}
+
+/* Stilizimi per responsivitet */
+@media (max-width: 768px) {
+
+.header ul{
+  display: none;
+}
+
+.hamburger {
+  display: flex;
+}
+
+.header{
+    display: space-between;
+}
+
+.header ul.show{
+  display: flex;
+  flex-direction: column;
+  background: white;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  padding: 15px;
+  gap: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.logo{
+    order: 1;
+}
+
+.icons{
+    order: 2;;
+}
+
+.hamburger{
+    order: 3;
+}
+
+.main .container{
+    flex-direction: column;
+    gap: 20px;
+    margin: 0 10px;
+}
+
+.main img {
+    width: 100%;
+    height: auto;
+}
+
+.text {
+    padding: 20px;
+}
+
+.footer .container {
+    flex-direction: column;
+    margin: 20px 30px;
+    gap: 20px;
+}
+
+.footer .left,
+.footer .list {
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+}
+
+.socials {
+    justify-content: center;
+    gap: 10px;
+}
+
 }
