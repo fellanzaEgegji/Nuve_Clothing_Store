@@ -11,37 +11,44 @@ hamburger.addEventListener("click", () => {
 // Hero Slider
 var i = 0;
 var imgArray = ["library/hero1.webp", "library/hero2.webp"];
-function ndrroImg() { 
-document.getElementById('slideshow').src = imgArray[i];
-    if (i < imgArray.length - 1) { 
-        i++;
-    } else {
-        i = 0;
-    }
 
-setTimeout(ndrroImg, 3000);
+const slideshow = document.getElementById('slideshow');
+const nextBtn = document.getElementById("next");
+const prevBtn = document.getElementById("previous");
+
+function ndrroImg() { 
+  slideshow.src = imgArray[i];
+  if (i < imgArray.length - 1) { 
+      i++;
+  } else {
+      i = 0;
+  }
+  setTimeout(ndrroImg, 3000);
 }
 function nextImg() {
     i++;
     if (i >= imgArray.length) i = 0;
-    document.getElementById('slideshow').src = imgArray[i];
+    slideshow.src = imgArray[i];
 }
 function prevImg() {
     i--;
     if (i < 0) i = imgArray.length - 1;
-    document.getElementById('slideshow').src = imgArray[i];
+    slideshow.src = imgArray[i];
 }
-document.getElementById("next").onclick = nextImg;
-document.getElementById("previous").onclick = prevImg;
-window.onload = ndrroImg;
+if (slideshow && nextBtn && prevBtn) {
+  window.onload = ndrroImg;
+  nextBtn.onclick = nextImg;
+  prevBtn.onclick = prevImg;
+}
 
 // Fillimi i videos
 const video = document.getElementById("video");
 
+if (video) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        video.play();
+        video.play().catch(err => console.log("Play error:", err));
       } else {
         video.pause();
       }
@@ -51,4 +58,5 @@ const video = document.getElementById("video");
   });
 
   observer.observe(video);
+}
 
