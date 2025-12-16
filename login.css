@@ -40,6 +40,18 @@
     width: 30px;
     height: 30px;
 }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: black;
+}
 /*Form Container*/
 .login-container{
     display: flex;
@@ -191,4 +203,65 @@
     display: flex;
     background-color: var(--gray);
     padding: 5px;
+}
+/*Stilizimi per responsivitet*/
+@media (max-width: 768px) {
+
+.header ul{
+  display: none;
+}
+
+.hamburger {
+  display: flex;
+}
+
+.header{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px 20px;
+}
+
+.header ul.show{
+  display: flex;
+  flex-direction: column;
+  background: white;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  padding: 15px;
+  gap: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.logo{
+    order: 1;
+}
+
+.icons{
+    order: 2;;
+}
+
+.hamburger{
+    order: 3;
+}
+
+.footer .container {
+    flex-direction: column;
+    margin: 20px 30px;
+    gap: 20px;
+}
+
+.footer .left,
+.footer .list {
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+}
+
+.socials {
+    justify-content: center;
+    gap: 10px;
+}
+
 }

@@ -35,19 +35,41 @@
     width: 30px;
     height: 30px;
 }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: black;
+}
+
 /*Imazh+Tekst*/
 .main{
     background: var(--gray);
     display: flex;
+    flex-wrap: wrap;
     gap: 50px;
     padding: 20px;
     align-items: center;
+    justify-content: center;
+}
+.main-img{
+    flex: 1 1 400px;
+    display: flex;
+    justify-content: center;
 }
 .main-img img{
-    height: 100vh;
+    width: 100%;
+    max-width: 650px;
+    height: auto;
 }
 .main-text{
-    width: 50%;
+    flex: 1 1 400px;
 }
 .main-text h1{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -71,15 +93,19 @@
     gap: 20px;
 }
 .viewport{
-    width: 1400px;
+    width: 100%;
     overflow: hidden;
 }
 .track{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 .card{
-    min-width: 320px;
-    margin: 0 10px;
+    flex: 1 1 300px;
+    max-width: 350px;
+    /*margin: 0 10px;*/
     background: #f3f3f3;
     padding: 30px;
     border-radius: 10px;
@@ -155,4 +181,65 @@
     display: flex;
     background-color: var(--gray);
     padding: 5px;
+}
+/*Stilizimi per responsivitet*/
+@media (max-width: 768px) {
+
+.header ul{
+  display: none;
+}
+
+.hamburger {
+  display: flex;
+}
+
+.header{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px 20px;
+}
+
+.header ul.show{
+  display: flex;
+  flex-direction: column;
+  background: white;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  padding: 15px;
+  gap: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.logo{
+    order: 1;
+}
+
+.icons{
+    order: 2;;
+}
+
+.hamburger{
+    order: 3;
+}
+
+.footer .container {
+    flex-direction: column;
+    margin: 20px 30px;
+    gap: 20px;
+}
+
+.footer .left,
+.footer .list {
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+}
+
+.socials {
+    justify-content: center;
+    gap: 10px;
+}
+
 }

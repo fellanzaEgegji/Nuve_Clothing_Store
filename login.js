@@ -1,3 +1,13 @@
+// Hamburger Menu-ja
+const hamburger = document.getElementById("hamburger");
+const menu = document.querySelector(".header ul");
+const icons = document.querySelector(".icons");
+
+hamburger.addEventListener("click", () => {
+  menu.classList.toggle("show");
+  icons.classList.toggle("show");
+});
+//Validimi i Login Form
 const emriMbiemriRe = /^[a-zA-Z\s]{3,}$/;
 const passwordRe = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
