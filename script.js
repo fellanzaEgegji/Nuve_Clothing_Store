@@ -17,12 +17,12 @@ const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("previous");
 
 function ndrroImg() { 
-  slideshow.src = imgArray[i];
-  if (i < imgArray.length - 1) { 
-      i++;
-  } else {
-      i = 0;
-  }
+slideshow.src = imgArray[i];
+if (i < imgArray.length - 1) { 
+    i++;
+} else {
+    i = 0;
+}
   setTimeout(ndrroImg, 3000);
 }
 function nextImg() {

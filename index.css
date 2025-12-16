@@ -58,7 +58,9 @@
 /* Stilizimi i hero-it */
 .hero {
     width: 100%;
-     position: relative;
+    display: flex;
+    position: relative;
+    align-items: center;
 }
 .hero img {
     width: 100%;
@@ -69,13 +71,14 @@
     top: 50%;
     background: none;
     border: none;
-    width: 55px;
     cursor: pointer;
 }
 
 #previous { left: 10px; }
 #next { right: 10px; }
-
+#previous img, #next img {
+    width: 40px;
+}
 /* Stilizimi i video-s */
 .video {
     width: 100%;
@@ -150,7 +153,9 @@
 }
 
 .header{
-    display: space-between;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px 20px;
 }
 
 .header ul.show{
@@ -172,6 +177,10 @@
 
 .icons{
     order: 2;;
+}
+.icons img{
+    width: 25px;
+    height: 25px;
 }
 
 .hamburger{
@@ -195,5 +204,4 @@
     justify-content: center;
     gap: 10px;
 }
-
 }
