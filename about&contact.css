@@ -129,6 +129,34 @@
 .contact-button:hover{
     background-color: #333;
 }
+.error {
+   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   color: #b00020;
+   font-weight: bold;
+   font-size: 13px;
+   margin-top: 6px
+}
+.notification {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #4BB543;
+    border-radius: 6px;
+    border: 1px solid #4BB543;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.notification.show {
+    opacity: 1;
+}
 
 /* Stilizimi i footer-it */
 .footer {

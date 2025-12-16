@@ -41,30 +41,36 @@
     <!-- Struktura e formes se kontaktit -->
     <div class="form-container">
         <h2>Na Kontaktoni</h2>
-        <form class="contact-form">
+        <form class="contact-form" id="contact-form" novalidate>
             <div class="form-group">
                 <p>Emri</p>
-                <input type="text" placeholder="Shkruani emrin" required>
+                <input type="text" id="emri" name="emri" placeholder="Shkruani emrin" required>
+                <div id="emriError" class="error" aria-live="polite"></div>
             </div>
             <div class="form-group">
                 <p>Mbiemri</p>
-                <input type="text" placeholder="Shkruani mbiemrin" required>
+                <input type="text" id="mbiemri" name="mbiemri" placeholder="Shkruani mbiemrin" required>
+                <div id="mbiemriError" class="error" aria-live="polite"></div>
             </div>
             <div class="form-group">
                 <p>Email</p>
-                <input type="email" placeholder="Shkruani email-in" required>
+                <input type="email" id="email" name="email" placeholder="Shkruani email-in" required>
+                <div id="emailError" class="error" aria-live="polite"></div>
             </div>
             <div class="form-group">
                 <p>Numri i Telefonit</p>
-                <input type="number" placeholder="Shkruani numrin e telefonit" required>
+                <input type="number" id="phone" name="phone" placeholder="Shkruani numrin e telefonit" required>
+                <div id="phoneError" class="error" aria-live="polite"></div>
             </div>
             <div class="form-group">
                 <p>Mesazhi</p>
-                <textarea placeholder="Shkruani mesazhin" required></textarea>
+                <textarea id="message" name="message" placeholder="Shkruani mesazhin" required></textarea>
+                <div id="messageError" class="error" aria-live="polite"></div>
             </div>
             <button type="submit" class="contact-button">Dergo</button>
         </form>
     </div>
+    <div id="notification" class="notification">Mesazhi u dërgua me sukses!</div>
     
     <!-- Struktura e Footer-it -->
     <section class="footer">
