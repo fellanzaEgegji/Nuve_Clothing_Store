@@ -9,37 +9,68 @@ hamburger.addEventListener("click", () => {
 });
 
 // Hero Slider
-var i = 0;
-var imgArray = ["library/hero1.webp", "library/hero2.webp"];
+let i = 0;
 
-const slideshow = document.getElementById('slideshow');
+let desktopImgs = [
+  "library/hero1.webp",
+  "library/hero2.webp",
+  "library/hero4.webp"
+];
+
+let mobileImgs = [
+  "library/hero3.jpeg",
+  "library/hero5.jpeg"
+];
+
+const slideshow = document.getElementById("slideshow");
 const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("previous");
 
-function ndrroImg() { 
-slideshow.src = imgArray[i];
-if (i < imgArray.length - 1) { 
+function eshteMobile() {
+  return window.innerWidth <= 768;
+}
+
+function ktheImgs() {
+  return eshteMobile() ? mobileImgs : desktopImgs;
+}
+
+function ndrroImg() {
+  const imgs = ktheImgs();
+  slideshow.src = imgs[i];
+  if(i < imgs.length-1){
     i++;
-} else {
+  } else {
     i = 0;
+  }
+  setTimeout(ndrroImg, 4000);
 }
-  setTimeout(ndrroImg, 3000);
-}
+
 function nextImg() {
-    i++;
-    if (i >= imgArray.length) i = 0;
-    slideshow.src = imgArray[i];
+  const imgs = ktheImgs();
+  i++;
+  if(i >= imgs.length) i = 0;
+  slideshow.src = imgs[i];
 }
+
 function prevImg() {
-    i--;
-    if (i < 0) i = imgArray.length - 1;
-    slideshow.src = imgArray[i];
+  const imgs = ktheImgs();
+  i--;
+  if(i < 0) i = imgs.length-1;
+  slideshow.src = imgs[i];
 }
-if (slideshow && nextBtn && prevBtn) {
-  window.onload = ndrroImg;
-  nextBtn.onclick = nextImg;
-  prevBtn.onclick = prevImg;
-}
+
+window.addEventListener("load", () => {
+  i = 0;
+  ndrroImg();
+});
+
+window.addEventListener("resize", () => {
+  i = 0;
+  ndrroImg();
+});
+
+nextBtn.onclick = nextImg;
+prevBtn.onclick = prevImg;
 
 // Fillimi i videos
 const video = document.getElementById("video");
@@ -48,7 +79,7 @@ if (video) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        video.play().catch(err => console.log("Play error:", err));
+        video.play();
       } else {
         video.pause();
       }
