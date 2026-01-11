@@ -208,17 +208,19 @@
 
 /* Stilizimi per responsivitet */
 @media (max-width: 768px) {
-
 .header ul{
   display: none;
 }
 
 .hamburger {
   display: flex;
+  order: 3;
 }
 
 .header{
-    display: space-between;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px 15px;
 }
 
 .header ul.show{
@@ -239,11 +241,11 @@
 }
 
 .icons{
-    order: 2;;
+    order: 2;
 }
-
-.hamburger{
-    order: 3;
+.icons img{
+    width: 25px;
+    height: 25px;
 }
 
 .main .container{

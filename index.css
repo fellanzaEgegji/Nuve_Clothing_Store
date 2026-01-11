@@ -93,6 +93,40 @@
     object-fit: cover;
 }
 
+/* Stilizimi i brendeve */
+.brands {
+    padding: 60px 0px;
+}
+.brands-container {
+    overflow: hidden;
+}
+
+.brands-track {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+}
+
+.brands:hover .brands-track {
+    animation-play-state: paused;
+}
+
+.brands img {
+    height: 60px;
+    flex-shrink: 0;
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
 /* Stilizimi i footer-it */
 .footer {
     margin: 0px;
@@ -150,6 +184,7 @@
 
 .hamburger {
   display: flex;
+  order: 3;
 }
 
 .header{
@@ -171,24 +206,20 @@
   z-index: 1000;
 }
 
-#previous, #next {
-    display: none;
-}
-
 .logo{
     order: 1;
 }
 
 .icons{
-    order: 2;;
+    order: 2;
 }
 .icons img{
     width: 25px;
     height: 25px;
 }
 
-.hamburger{
-    order: 3;
+#previous, #next {
+    display: none;
 }
 
 .video {
