@@ -1,0 +1,38 @@
+<!-- Struktura e footer-it -->
+        <section class="footer">
+            <div class="container">
+                <div class="left">
+                    <h2>Na kontaktoni</h2>
+                    <p>049 123 123</p>
+                    <p>044 123 123</p>
+                    <div class="socials">
+                        <a href=""><img src="library/instagram.png" alt="instagram logo"></a>
+                        <a href=""><img src="library/facebook.png" alt="facebook logo"></a>
+                        <a href=""><img src="library/mail.png" alt="mail logo"></a>
+                    </div>
+                </div>
+                <div class="list">
+                    <h2>Lokacionet</h2>
+                    <p>Albi Mall, Prishtinë</p>
+                    <p>Galeria Shopping Mall, Prizren</p>
+                    <p>Ferizaj</p>
+                </div>
+                
+                <div class="list">
+                    <h2>Links</h2>
+                    <ul>
+                        <li><a href="about-us.php">Rreth Nesh</a></li>
+                        <li><a href="contact-us.php">Kontakti</a></li>
+                        <li><a href="">Shporta e Blerjeve</a></li>
+                        <li><a href="testimonial.php">Vlerësimet e Klientëve</a></li>
+                    </ul>
+                    
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Të gjitha të drejtat e rezervuara</p>
+            </div>
+        </section>
+        <script src="script.js"></script>
+    </body>
+</html>
