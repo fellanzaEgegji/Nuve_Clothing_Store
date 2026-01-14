@@ -1,0 +1,51 @@
+<?php
+    $page_css = "register.css";
+    include_once 'header.php';
+?>
+    <!--Struktura e Register Form-->
+    <div class="register-container">
+        <h2>Krijo Llogari</h2>
+        <form class="register-form" id="register-form" novalidate>
+            <div class="form-group">
+                <p>Emri</p>
+                <input type="text" id="emri" name="emri" placeholder="Shkruani emrin" required>
+                <div id="emriError" class="error" aria-live="polite"></div>
+            </div>
+            <div class="form-group">
+                <p>Mbiemri</p>
+                <input type="text" id="mbiemri" name="mbiemri" placeholder="Shkruani mbiemrin" required>
+                <div id="mbiemriError" class="error" aria-live="polite"></div>
+            </div>
+            <div class="form-group">
+                <p>Email</p>
+                <input type="email" id="email" name="email" placeholder="Shkruani email-in" required>
+                <div id="emailError" class="error" aria-live="polite"></div>
+            </div>
+            <div class="form-group">
+                <p>Fjalëkalimi</p>
+                <input type="password" id="password" name="password" placeholder="Shkruani fjalëkalimin" required>
+                <div id="passwordError" class="error" aria-live="polite"></div>
+            </div>
+            <div class="form-group">
+                <p>Konfirmo fjalëkalimin</p>
+                <input type="password" id="confirm" name="confirm" placeholder="Përsëritni fjalëkalimin" required>
+                <div id="confirmError" class="error" aria-live="polite"></div>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">Pranoj Termat dhe Kushtet</label>
+                <div id="termsError" class="error"></div>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="news">
+                <label for="news">Pranoj të marr njoftime me Email & SMS</label>
+            </div>
+            <button type="submit" class="register-button">Regjistrohu</button>
+            <div id="formSuccess" class="success" role="status" aria-live="polite"></div>
+        </form>
+        <p class="signin-text">
+            Ke llogari? <a href="login.php">Kyçu këtu.</a>
+        </p>
+    </div>
+    <script src="register.js"></script>
+<?php require_once 'footer.php' ?>

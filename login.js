@@ -43,7 +43,7 @@ function validateField(){
 emriMbiemri.addEventListener('input', () => {if(emriMbiemriRe.test(emriMbiemri.value.trim())) emriMbiemriError.textContent='';});
 password.addEventListener('input', () => {if(passwordRe.test(password.value)) passwordError.textContent = '';});
 
-form.addEventListener('submit', (e) =>{
+/*form.addEventListener('submit', (e) =>{
     e.preventDefault();
     if(validateField()){
         formSuccess.textContent = 'Jeni kyçur me sukses!';
@@ -55,7 +55,7 @@ form.addEventListener('submit', (e) =>{
     } else {
         formSuccess.textContent = "";
     }
-});
+});*/
 googleButton.addEventListener('click', () =>{
     alert('Ky funksionalitet është i simuluar për qëllime demonstrimi. ');
 });

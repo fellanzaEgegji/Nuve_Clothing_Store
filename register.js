@@ -69,7 +69,7 @@ email.addEventListener('input', () => {if(emailRe.test(email.value.trim())) emai
 password.addEventListener('input', () => {if(passwordRe.test(password.value)) passwordError.textContent='';});
 confirmPassword.addEventListener('input', () => {if(confirmPassword.value === password.value) confirmError.textContent='';});
 
-form.addEventListener('submit', (e) =>{
+/*form.addEventListener('submit', (e) =>{
     e.preventDefault();
     if(validateField()){
         formSuccess.textContent = 'Regjistrimi është kryer me sukses!';
@@ -81,4 +81,4 @@ form.addEventListener('submit', (e) =>{
     } else {
         formSuccess.textContent = "";
     }
-});
+});*/

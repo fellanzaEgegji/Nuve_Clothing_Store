@@ -1,31 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testimonials Page</title>
-    <link rel="stylesheet" href="testimonial.css">
-</head>
-<body>
-<!--Header-->
-    <section class="header">
-            <a href="index.html"><img src="library/logo.png"></a>
-            <ul>
-                <li><a href="">Meshkuj</a></li>
-                <li><a href="">Femra</a></li>
-                <li><a href="">Fëmijë</a></li>
-            </ul>
-            <div class="icons">
-                <a href=""><img src="library/search.png" alt=""></a>
-                <a href="login.html"><img src="library/profile.png" alt=""></a>
-                <a href=""><img src="library/cart.png" alt=""></a>
-            </div>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-    </section>
+<?php
+    $page_css = "testimonial.css";
+    include_once 'header.php';
+?>
+
  <!--Imazh + Tekst-->
     <section class="main">
         <div class="main-img">
@@ -107,41 +84,5 @@
         <button class="nav next">&#10095;</button>
     </div>
     </section>
-    <!--Footer-->
-    <section class="footer">
-            <div class="container">
-                <div class="left">
-                    <h2>Na kontaktoni</h2>
-                    <p>049 123 123</p>
-                    <p>044 123 123</p>
-                    <div class="socials">
-                        <a href=""><img src="library/instagram.png" alt="instagram logo"></a>
-                        <a href=""><img src="library/facebook.png" alt="facebook logo"></a>
-                        <a href=""><img src="library/mail.png" alt="mail logo"></a>
-                    </div>
-                </div>
-                <div class="list">
-                    <h2>Lokacionet</h2>
-                    <p>Albi Mall, Prishtinë</p>
-                    <p>Galeria Shopping Mall, Prizren</p>
-                    <p>Ferizaj</p>
-                </div>
-                
-                <div class="list">
-                    <h2>Links</h2>
-                    <ul>
-                        <li><a href="about-us.html">Rreth Nesh</a></li>
-                        <li><a href="contact-us.html">Kontakti</a></li>
-                        <li><a href="">Shporta e Blerjeve</a></li>
-                        <li><a href="testimonial.html">Vlerësimet e Klientëve</a></li>
-                    </ul>
-                    
-                </div>
-            </div>
-            <div class="copyright">
-                <p>Të gjitha të drejtat e rezervuara</p>
-            </div>
-    </section>
-   <script src="testimonial.js"></script>
-</body>
-</html>
+    <script src="testimonial.js"></script>
+<?php require_once 'footer.php' ?>
