@@ -1,4 +1,5 @@
 <?php
+    require_once 'session.php';
     $page_css = "about&contact.css";
     require_once 'header.php';
 ?>

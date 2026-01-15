@@ -1,6 +1,14 @@
 <?php
+    require_once 'session.php';
     $page_css = "index.css";
+    $_SESSION['role'] = 'admin';  // për testim
+    $_SESSION['user'] = 'TestUser';
     require_once 'header.php';
+
+    $isAdmin = false;
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+        $isAdmin = true;
+    }
 ?>
 
 <!-- Struktura e heroit -->

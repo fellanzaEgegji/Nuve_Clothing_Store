@@ -18,6 +18,9 @@
                 <li><a href="">Fëmijë</a></li>
             </ul>
             <div class="icons">
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                    <a href="dashboard.php">Dashboard</a>
+                <?php endif; ?>
                 <a href=""><img src="library/search.png" alt="search"></a>
                 <a href="register.php"><img src="library/profile.png" alt="profile"></a>
                 <a href=""><img src="library/cart.png" alt="cart"></a>
