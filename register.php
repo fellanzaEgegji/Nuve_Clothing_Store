@@ -1,11 +1,39 @@
 <?php
-    $page_css = "register.css";
+    if (isset($_POST['submit'])) {
+
+    $emri      = $_POST['emri'] ?? '';
+    $mbiemri   = $_POST['mbiemri'] ?? '';
+    $email     = $_POST['email'] ?? '';
+    $password  = $_POST['password'] ?? '';
+    $confirm   = $_POST['confirm'] ?? '';
+
+    if (!empty($emri) && !empty($mbiemri) && !empty($email) 
+        && !empty($password) && !empty($confirm)) {
+
+        if ($password === $confirm) {
+            header("Location:login.php");
+            exit; 
+        } else {
+            $error = "Fjalëkalimet nuk përputhen!";
+        }
+
+    } else {
+        $error = "Ju lutem plotësoni të gjitha fushat!";
+    }
+}
+
+ $page_css = "register.css";
     include_once 'header.php';
 ?>
+
+<?php if (isset($error)): ?>
+    <div class="error"><?= $error ?></div>
+<?php endif; ?> 
+
     <!--Struktura e Register Form-->
     <div class="register-container">
         <h2>Krijo Llogari</h2>
-        <form class="register-form" id="register-form" novalidate>
+        <form class="register-form" id="register-form" method="POST" action="" novalidate>
             <div class="form-group">
                 <p>Emri</p>
                 <input type="text" id="emri" name="emri" placeholder="Shkruani emrin" required>
@@ -40,7 +68,7 @@
                 <input type="checkbox" id="news">
                 <label for="news">Pranoj të marr njoftime me Email & SMS</label>
             </div>
-            <button type="submit" class="register-button">Regjistrohu</button>
+            <button type="submit" name="submit" class="register-button">Regjistrohu</button>
             <div id="formSuccess" class="success" role="status" aria-live="polite"></div>
         </form>
         <p class="signin-text">

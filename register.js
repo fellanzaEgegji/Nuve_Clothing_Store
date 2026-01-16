@@ -1,4 +1,4 @@
-// Hamburger Menu-ja
+/* Hamburger Menu-ja
 const hamburger = document.getElementById("hamburger");
 const menu = document.querySelector(".header ul");
 const icons = document.querySelector(".icons");
@@ -6,7 +6,7 @@ const icons = document.querySelector(".icons");
 hamburger.addEventListener("click", () => {
   menu.classList.toggle("show");
   icons.classList.toggle("show");
-});
+});*/
 //Validimi i Register Form
 const emriRe = /^[a-zA-Z]{3,20}$/;
 const mbiemriRe = /^[a-zA-Z]{3,}$/;
@@ -69,16 +69,9 @@ email.addEventListener('input', () => {if(emailRe.test(email.value.trim())) emai
 password.addEventListener('input', () => {if(passwordRe.test(password.value)) passwordError.textContent='';});
 confirmPassword.addEventListener('input', () => {if(confirmPassword.value === password.value) confirmError.textContent='';});
 
-/*form.addEventListener('submit', (e) =>{
-    e.preventDefault();
-    if(validateField()){
-        formSuccess.textContent = 'Regjistrimi është kryer me sukses!';
-        form.reset();
 
-        setTimeout(() => {
-            window.location.href = "login.html";
-        }, 2000); 
-    } else {
-        formSuccess.textContent = "";
+form.addEventListener('submit', (e) => {
+    if (!validateField()) {
+        e.preventDefault();
     }
-});*/
+})
