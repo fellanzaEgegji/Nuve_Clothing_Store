@@ -47,6 +47,5 @@
             <button type="submit" class="contact-button">Dergo</button>
         </form>
     </div>
-    <div id="notification" class="notification">Mesazhi u dërgua me sukses!</div>
 
 <?php require_once 'footer.php' ?>
