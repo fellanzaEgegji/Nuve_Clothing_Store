@@ -151,28 +151,15 @@ if (form) {
   message.addEventListener('input', () => {if(message.value.trim().length >= 10) messageError.textContent='';});
 
   form.addEventListener('submit', (e) =>{
-    e.preventDefault();
-    if(validateField()){
-      showNotification('Mesazhi u dërgua me sukses 🚀');
-      form.reset();
-
-      setTimeout(() => {
-          window.location.href = "index.html";
-      }, 5000); 
+    if(!validateField()){
+      e.preventDefault();
     }
   });
+
+  const successDiv = form.querySelector('.success');
+    if (successDiv && successDiv.textContent.trim() !== "") {
+      window.location.href = "index.php";
+    }
 }
 
-// Notification per formen e kontaktit
-const notification = document.getElementById('notification');
-
-function showNotification() {
-  if (!notification) return;
-
-  notification.classList.add('show');
-
-  setTimeout(() => {
-    notification.classList.remove('show');
-  }, 3500);
-}
 

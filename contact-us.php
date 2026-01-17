@@ -1,7 +1,47 @@
 <?php
     require_once 'session.php';
+    /* Për testim */ 
+    /*
+    $_SESSION['role'] = 'user';
+    $_SESSION['emri'] = 'Erblina';
+    $_SESSION['mbiemri'] = 'Ramadani';
+    $_SESSION['email'] = 'test@email.com';
+    */
     $page_css = "about&contact.css";
     require_once 'header.php';
+
+    $error = "";
+    $success = "";
+
+    if (isset($_POST['send'])) {
+
+        if (!isset($_SESSION['role'])) {
+            $error = "Duhet të jeni të kyçur për të dërguar mesazhin.";
+        } else {
+
+            $emri = $_POST['emri'] ?? '';
+            $mbiemri = $_POST['mbiemri'] ?? '';
+            $email = $_POST['email'] ?? '';
+
+            if (
+                $emri !== $_SESSION['emri'] ||
+                $mbiemri !== $_SESSION['mbiemri'] ||
+                $email !== $_SESSION['email']
+            ) {
+                $error = "Të dhënat nuk përputhen me llogarinë tuaj.";
+            } else {
+
+                $phone = $_POST['phone'] ?? '';
+                $message = $_POST['message'] ?? '';
+
+                if (!empty($phone) && !empty($message)) {
+                    $success = "Mesazhi u dërgua me sukses!";
+                } else {
+                    $error = "Ju lutem plotësoni të gjitha fushat.";
+                }
+            }
+        }
+    }
 ?>
 
 <!-- Struktura main -->
@@ -18,7 +58,7 @@
     <!-- Struktura e formes se kontaktit -->
     <div class="form-container">
         <h2>Na Kontaktoni</h2>
-        <form class="contact-form" id="contact-form" novalidate>
+        <form class="contact-form" id="contact-form" method="POST" novalidate>
             <div class="form-group">
                 <p>Emri</p>
                 <input type="text" id="emri" name="emri" placeholder="Shkruani emrin" required>
@@ -44,7 +84,15 @@
                 <textarea id="message" name="message" placeholder="Shkruani mesazhin" required></textarea>
                 <div id="messageError" class="error" aria-live="polite"></div>
             </div>
-            <button type="submit" class="contact-button">Dergo</button>
+            <button type="submit" name="send" class="contact-button">Dergo</button>
+
+            <?php if (!empty($error)): ?>
+            <div class="error"><?= $error ?></div>
+            <?php endif; ?>
+
+            <?php if (!empty($success)): ?>
+            <div class="success"><?= $success ?></div>
+            <?php endif; ?>
         </form>
     </div>
 
