@@ -1,4 +1,4 @@
-// Hamburger Menu-ja
+/* Hamburger Menu-ja
 const hamburger = document.getElementById("hamburger");
 const menu = document.querySelector(".header ul");
 const icons = document.querySelector(".icons");
@@ -6,7 +6,7 @@ const icons = document.querySelector(".icons");
 hamburger.addEventListener("click", () => {
   menu.classList.toggle("show");
   icons.classList.toggle("show");
-});
+});*/
 //Validimi i Login Form
 const emriMbiemriRe = /^[a-zA-Z\s]{3,}$/;
 const passwordRe = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
@@ -43,19 +43,12 @@ function validateField(){
 emriMbiemri.addEventListener('input', () => {if(emriMbiemriRe.test(emriMbiemri.value.trim())) emriMbiemriError.textContent='';});
 password.addEventListener('input', () => {if(passwordRe.test(password.value)) passwordError.textContent = '';});
 
-/*form.addEventListener('submit', (e) =>{
-    e.preventDefault();
-    if(validateField()){
-        formSuccess.textContent = 'Jeni kyçur me sukses!';
-        form.reset();
-
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 2000); 
-    } else {
-        formSuccess.textContent = "";
+form.addEventListener('submit', (e) => {
+    if (!validateField()) {
+        e.preventDefault();
     }
-});*/
+});
+
 googleButton.addEventListener('click', () =>{
     alert('Ky funksionalitet është i simuluar për qëllime demonstrimi. ');
 });
