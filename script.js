@@ -162,4 +162,17 @@ if (form) {
     }
 }
 
+  // Shfaqja e formes change password
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('togglePassword');
+    const passwordForm = document.getElementById('passwordForm');
+
+    if (toggleBtn && passwordForm) {
+      toggleBtn.addEventListener('click', () => {
+      passwordForm.classList.toggle('show');
+    });
+  }
+});
+
+
 
