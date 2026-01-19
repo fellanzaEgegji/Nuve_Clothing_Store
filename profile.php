@@ -39,20 +39,24 @@
                         <button type="submit" name="logout" class="logout">Logout</button>
                     </form>
                 </div>
-                <form class="password-form" id="passwordForm" method="POST" action="">
+                <form class="password-form" id="passwordForm" method="POST" action="" novalidate>
                     <div class="form-group">
-                        <label>Password aktual</label>
-                        <input type="password" name="current_password" autocomplete="current-password" required>
+                        <label>Fjalëkalimi aktual</label>
+                        <input type="password" name="current_password" id="currentPassword" autocomplete="current-password" required>
+                        <div id="currentError" class="error" aria-live="polite"></div>
                     </div>
                     <div class="form-group">
-                        <label>Password i ri</label>
-                        <input type="password" name="new_password" autocomplete="new-password" required>
+                        <label>Fjalëkalimi i ri</label>
+                        <input type="password" name="new_password" id="newPassword" autocomplete="new-password" required>
+                        <div id="newError" class="error" aria-live="polite"></div>
                     </div>
                     <div class="form-group">
-                        <label>Konfirmo password-in</label>
-                        <input type="password" name="confirm_password" autocomplete="new-password" required>
+                        <label>Konfirmo fjalëkalimin</label>
+                        <input type="password" name="confirm_password" id="confirmPassword" autocomplete="new-password" required>
+                        <div id="confirmError" class="error" aria-live="polite"></div>
                     </div>
-                    <button type="submit" name="change_password">Ruaj ndryshimet</button>
+                    <button type="submit" class="password-button" name="change_password">Ruaj ndryshimet</button>
+                    <div id="formSuccess" class="success" role="status" aria-live="polite"></div>
                 </form>
             </div>
         </div>

@@ -168,10 +168,57 @@ if (form) {
     const passwordForm = document.getElementById('passwordForm');
 
     if (toggleBtn && passwordForm) {
-      toggleBtn.addEventListener('click', () => {
-      passwordForm.classList.toggle('show');
+      toggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        passwordForm.classList.toggle('show');
     });
   }
+
+
+// Validimi i formes change password
+if(passwordForm){
+  const passwordRe = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+  const currentPassword = document.getElementById('currentPassword');
+  const newPassword = document.getElementById('newPassword');
+  const confirmPassword = document.getElementById('confirmPassword');
+
+  const currentError = document.getElementById('currentError');
+  const newError = document.getElementById('newError');
+  const confirmError = document.getElementById('confirmError');
+  const formSuccess = document.getElementById('formSuccess');
+
+  function clearErrors(){
+    [currentError, newError, confirmError, formSuccess].forEach(el => el.textContent='');
+  }
+  function validateField(){
+    clearErrors();
+    let valid = true;
+
+    if(!passwordRe.test(currentPassword.value)){
+      currentError.textContent = 'Fjalëkalimi nuk është i vlefshëm';
+      valid=false;
+    }
+    if(!passwordRe.test(newPassword.value)){
+        newError.textContent = 'Fjalëkalimi nuk është i vlefshëm. Duhet të përmbajë 1 shkronjë të madhe, 1 numër, dhe 1 simbol!';
+        valid=false;
+    }
+    if(newPassword.value !== confirmPassword.value){
+      confirmError.textContent = 'Fjalëkalimet nuk përputhen!';
+      valid=false;
+    }
+    return valid;
+  }
+  currentPassword.addEventListener('input', () => {if(passwordRe.test(currentPassword.value)) currentError.textContent='';});
+  newPassword.addEventListener('input', () => {if(passwordRe.test(newPassword.value)) newError.textContent='';});
+  confirmPassword.addEventListener('input', () => {if(confirmPassword.value === newPassword.value) confirmError.textContent='';});
+
+  passwordForm.addEventListener('submit', (e) => {
+    if (!validateField()) {
+        e.preventDefault();
+    }
+})
+}
 });
 
 
