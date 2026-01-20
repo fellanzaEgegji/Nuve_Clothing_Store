@@ -20,7 +20,7 @@ if(isset($_POST['update'])){
     $qty = (int)$_POST['quantity'];
 
     if($qty > 0){
-        $_SESSION['cart']['$id']['quantity'] = $qty;
+        $_SESSION['cart'][$id]['quantity'] = $qty;
     }
 }
 if(isset($_POST['remove'])){
@@ -32,9 +32,20 @@ include_once 'header.php';
 ?>
 <!--Struktura e shportës-->
 <div class="cart-container">
-    <h1>Shporta juaj(<?=count($_SESSION['cart'])?>)</h1>
+    <?php
+        $totalQty = 0;
+        $grandTotal = 0;
+        foreach ($_SESSION['cart'] as $item) {
+            $totalQty += $item['quantity'];
+            $grandTotal += $item['price'] * $item['quantity'];
+        }
+    ?>
+
+    <h1>Shporta juaj(<?= $totalQty?>)</h1>
+    <p><strong>Total i shportës: </strong><?= $grandTotal ?>€</p>
 
     <?php foreach($_SESSION['cart'] as $id => $item): ?>
+        <?php $productTotal = $item['price'] * $item['quantity']; ?>
         <div class="cart-card">
             <p class="delivery">📦 Dorëzohet nga <strong><?= $item['brand']?></strong></p>
 
