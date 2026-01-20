@@ -91,6 +91,7 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
+    /*flex-wrap: wrap;*/
 }
 .viewport{
     width: 100%;
@@ -141,6 +142,27 @@
     background: #000;
     color: #fff;
 }
+/*Stilizimi i dots*/
+.dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ccc;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.dot.active {
+    background-color: #000;
+}
+
 /*Footer*/
 
 .footer{

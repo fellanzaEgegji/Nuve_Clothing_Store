@@ -1,4 +1,4 @@
-/* Hamburger Menu-ja
+//Hamburger Menu-ja
 const hamburger = document.getElementById("hamburger");
 const menu = document.querySelector(".header ul");
 const icons = document.querySelector(".icons");
@@ -6,7 +6,7 @@ const icons = document.querySelector(".icons");
 hamburger.addEventListener("click", () => {
   menu.classList.toggle("show");
   icons.classList.toggle("show");
-});*/
+});
 //Validimi i Register Form
 const emriRe = /^[a-zA-Z]{3,20}$/;
 const mbiemriRe = /^[a-zA-Z]{3,}$/;

@@ -9,6 +9,7 @@ hamburger.addEventListener("click", () => {
 });
 //Slider i komenteve
 let cards = document.querySelectorAll('.card');
+const dotsContainer = document.querySelector('.dots');
 let prev = document.querySelector('.prev');
 let next = document.querySelector('.next');
 
@@ -51,3 +52,54 @@ function updateVisibleCards() {
 
 window.addEventListener('resize', updateVisibleCards);
 window.onload = updateVisibleCards;
+//funksionalizimi i dots
+function createDots() {
+    dotsContainer.innerHTML = '';
+    let pages = Math.ceil(cards.length / visibleCards);
+    for (let i = 0; i < pages; i++) {
+        let dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+            index = i * visibleCards;
+            showCards();
+            updateDots();
+        });
+        dotsContainer.appendChild(dot);
+    }
+}
+
+function updateDots() {
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach(dot => dot.classList.remove('active'));
+    let activePage = Math.floor(index / visibleCards);
+    if (dots[activePage]) dots[activePage].classList.add('active');
+}
+
+// thirrjet
+window.onload = () => {
+    updateVisibleCards();
+    createDots();
+    showCards();
+};
+
+next.onclick = function(){
+    index += visibleCards;
+    if(index >= cards.length) index = 0;
+    showCards();
+    updateDots();
+}
+
+prev.onclick = function(){
+    index -= visibleCards;
+    if(index < 0) index = cards.length - visibleCards;
+    showCards();
+    updateDots();
+}
+
+window.addEventListener('resize', () => {
+    updateVisibleCards();
+    createDots();
+    showCards();
+    updateDots();
+});

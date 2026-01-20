@@ -84,6 +84,8 @@
         </div>
         <button class="nav next">&#10095;</button>
     </div>
+    <div class="dots"></div>
     </section>
-    <script src="testimonial.js"></script>
+
+    <script src="testimonial.js?v=1.2"></script>
 <?php require_once 'footer.php' ?>
