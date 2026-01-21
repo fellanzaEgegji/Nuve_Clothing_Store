@@ -1,5 +1,18 @@
 <?php
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
+    class Session {
+        public static function start() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
+
+    public static function isLoggedIn() {
+        return isset($_SESSION['userID']);
+    }
+
+    public static function logout() {
+        session_unset();
+        session_destroy();
+    }
     }
 ?>
