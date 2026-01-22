@@ -8,30 +8,30 @@ hamburger.addEventListener("click", () => {
   icons.classList.toggle("show");
 });
 //Validimi i Login Form
-const emriMbiemriRe = /^[a-zA-Z\s]{3,}$/;
+const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const passwordRe = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
 
 const form = document.getElementById('login-form');
-const emriMbiemri = document.getElementById('emri-mbiemri');
+const email = document.getElementById('email');
 const password = document.getElementById('password');
 const googleButton = document.querySelector('.google-button');
 const appleButton = document.querySelector('.apple-button');
 
-const emriMbiemriError = document.getElementById('emriMbiemriError');
+const emailError = document.getElementById('emailError');
 const passwordError = document.getElementById('passwordError');
 const formSuccess = document.getElementById('formSuccess');
 
 function clearErrors(){
-    [emriMbiemriError, passwordError].forEach(el => el.textContent='');
+    [emailError, passwordError].forEach(el => el.textContent='');
 }
 
 function validateField(){
     clearErrors();
     let valid = true;
 
-    if(!emriMbiemriRe.test(emriMbiemri.value.trim())){
-        emriMbiemriError.textContent = 'Emri dhe Mbiemri nuk janë valid!';
+    if(!emailRe.test(email.value.trim())){
+        emailError.textContent = 'Email nuk është valid!';
         valid = false;
     }
     if(!passwordRe.test(password.value)){
@@ -40,7 +40,7 @@ function validateField(){
     }
     return valid;
 }
-emriMbiemri.addEventListener('input', () => {if(emriMbiemriRe.test(emriMbiemri.value.trim())) emriMbiemriError.textContent='';});
+email.addEventListener('input', () => {if(emailRe.test(email.value.trim())) emailError.textContent='';});
 password.addEventListener('input', () => {if(passwordRe.test(password.value)) passwordError.textContent = '';});
 
 form.addEventListener('submit', (e) => {

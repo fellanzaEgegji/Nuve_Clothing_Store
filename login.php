@@ -1,18 +1,24 @@
 <?php
     require_once 'session.php';
+    require_once 'Auth.php';
 
-    //$error = '';
+    Session::start();
+    $error = '';
 
     if (isset($_POST['login'])) {
 
-    $emriMbiemri = $_POST['emri-mbiemri'] ?? '';
+    $email = $_POST['email'] ?? '';
     $password    = $_POST['password'] ?? '';
 
-    if (!empty($emriMbiemri) && !empty($password)) {
+    if (!empty($email) && !empty($password)) {
+        $user = Auth::login($email, $password);
 
-        $_SESSION['user'] = $emriMbiemri;
-        header("Location:index.php");
-        exit;
+        if ($user) {
+            header("Location: index.php");
+            exit;
+        } else {
+            $error = "Email ose fjalëkalimi është gabim!";
+        }
 
     } else {
         $error = "Ju lutem plotësoni të gjitha fushat!";
@@ -33,9 +39,9 @@
 
         <form class="login-form" id="login-form" method="POST" action="" novalidate>
             <div class="form-group">
-                <p>Emri dhe Mbiemri</p>
-                <input type="text" id="emri-mbiemri" name="emri-mbiemri" placeholder="Shkruani emrin dhe mbiemrin" required>
-                <div id="emriMbiemriError" class="error" aria-live="polite"></div>
+                <p>Email</p>
+                <input type="text" id="email" name="email" placeholder="Shkruani email-in" required>
+                <div id="emailError" class="error" aria-live="polite"></div>
             </div>
             <div class="form-group">
                 <p>Fjalëkalimi</p>
@@ -59,5 +65,5 @@
             Nuk ke llogari? <a href="register.php">Regjistrohu këtu.</a>
         </p>
     </div>
-    <script src="login.js?v=1.2" ></script>
+    <script src="login.js" ></script>
     <?php require_once 'footer.php' ?>
