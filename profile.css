@@ -59,7 +59,7 @@
 .profile {
     display: flex;
     justify-content: center;
-    margin: 60px 20px;
+    padding: 40px 300px;
 }
 
 .user-card {
@@ -69,7 +69,6 @@
     padding: 50px;
     border-radius: 16px;
     border: 1px solid #ccc;
-    max-width: 900px;
     width: 100%;
     justify-content: space-around;
 }
@@ -178,7 +177,6 @@
     background-color: #333;
 }
 
-
 .error {
    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
    color: #b00020;
@@ -194,6 +192,194 @@
     font-size: 18px;
     margin-top: 10px;
     text-align: center;
+}
+
+/* Stilizimi i orders */
+.orders-section {
+    padding: 40px 300px;
+    display: flex;
+    justify-content: center;
+}
+.orders-card h2 {
+    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: 600;
+}
+.orders-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    border: 1px solid #ccc;
+    width: 100%;
+    padding: 30px;
+}
+
+.orders-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    background-color: #2ecc71;
+    color: white;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.order-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 14px;
+    margin-bottom: 18px;
+}
+.order-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+.order-header-R {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+    align-items: center;
+}
+
+.order-id {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.order-date {
+    font-size: 13px;
+    color: #777;
+}
+
+.order-details {
+    display: none;
+    border-top: 1px solid #eee;
+}
+
+.order-card.show-details .order-details {
+    display: block;
+}
+.status-class {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.completed {
+    background: #e7f6ec;
+    color: #1e7e34;
+}
+
+.inprocess {
+    background: #fff4e5;
+    color: #b26a00;
+}
+
+.cancelled {
+    background: #fdeaea;
+    color: #c82333;
+}
+
+.order-total {
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.order-button {
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.order-button:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.order-details {
+    padding-top: 15px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+}
+.order-actions {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.item-name {
+    font-weight: 500;
+}
+
+.item-qty {
+    color: #777;
+}
+
+.item-price {
+    font-weight: 600;
+}
+
+.repeat-button {
+    margin-top: 15px;
+    padding: 9px 18px;
+    border-radius: 10px;
+    border: none;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.repeat-button:hover {
+    opacity: 0.5;
+}
+
+.orders-stats {
+    margin-bottom: 35px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.stat-box {
+    background: #fafafa;
+    border: 1px solid #e6e6e6;
+    border-radius: 14px;
+    padding: 20px;
+    width: 150px;
+    justify-items: center;
+}
+
+.stat-box h3 {
+    font-size: 15px;
+    color: #666;
+}
+
+.stat-box p {
+    font-size: 24px;
+    font-weight: 600;
 }
 
 /* Stilizimi i footer-it */
@@ -317,6 +503,9 @@
     justify-content: center;
     gap: 10px;
 }
+.profile {
+    padding: 40px 20px;
+}
 
 .user-card {
     flex-direction: column;
@@ -324,7 +513,7 @@
     text-align: center;
 }
 
-.user-avatar img {
+.user-profile img {
     width: 160px;
     height: 160px;
 }
@@ -332,5 +521,96 @@
 .profile-actions {
     justify-content: center;
     flex-wrap: wrap;
+}
+
+.orders-section {
+    padding: 10px 20px;
+}
+
+.orders-card {
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.orders-card h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.order-card {
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.order-header-R {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.status-class {
+    font-size: 12px;
+    padding: 5px 12px;
+}
+
+.order-total {
+    font-size: 15px;
+}
+
+.repeat-button {
+    width: 100%;
+    text-align: center;
+    padding: 11px;
+    margin-top: 10px;
+}
+
+.view-button {
+    padding: 10px;
+}
+
+.order-details {
+    padding-top: 12px;
+}
+
+.order-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: 4px;
+    font-size: 13px;
+}
+
+.item-price {
+    grid-column: 2;
+    font-weight: 600;
+}
+
+.orders-stats {
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px;
+}
+
+.stat-box {
+    padding: 16px;
+    width: 100%;
+}
+
+.stat-box h3 {
+    font-size: 14px;
+}
+
+.stat-box p {
+    font-size: 20px;
 }
 }

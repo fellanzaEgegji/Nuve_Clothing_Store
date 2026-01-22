@@ -1,34 +1,46 @@
 <?php
+require_once 'Product.php';
 class OrderItem {
-    private $name;
+    private $product;
     private $qty;
-    private $price;
+    private $sale;
+    private $priceAtPurchase;
 
-    public function __construct(string $name, int $qty, string $price) {
-        $this->name = $name;
+    public function __construct($product, $qty, $sale = 0) {
+        $this->product = $product;
         $this->qty = $qty;
-        $this->price = $price;
+        $this->sale = $sale;
+        $this->priceAtPurchase = $this->calculatePriceAtPurchase();
     }
 
-    public function getName() {
-        return $this->name;
+    private function calculatePriceAtPurchase() {
+        $price = $this->product->getPrice();
+
+        if ($this->sale > 0) {
+            $price -= ($price * $this->sale / 100);
+        }
+
+        return round($price, 2);
     }
-    public function setName($name){
-        $this -> name = $name;
+
+    public function getProduct() {
+        return $this->product;
     }
 
     public function getQty() {
         return $this->qty;
     }
-    public function setQty($qty){
-        $this -> qty = $qty;
+
+    public function getSale() {
+        return $this->sale;
     }
 
     public function getPrice() {
-        return $this->price;
+        return $this->priceAtPurchase;
     }
-    public function setPrice($price){
-        $this -> price = $price;
+
+    public function getSubtotal() {
+        return round($this->priceAtPurchase * $this->qty, 2);
     }
 }
 ?>

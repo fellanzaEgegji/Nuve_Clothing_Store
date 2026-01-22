@@ -162,21 +162,17 @@ if (form) {
     }
 }
 
-  // Shfaqja e formes change password
-  document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.getElementById('togglePassword');
-    const passwordForm = document.getElementById('passwordForm');
-
-    if (toggleBtn && passwordForm) {
-      toggleBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        passwordForm.classList.toggle('show');
-    });
-  }
-
+//Thirrja e funksioneve
+document.addEventListener('DOMContentLoaded', () => {
+  validatePassword();
+  OrderDetails();
+  togglePassword();
+});
 
 // Validimi i formes change password
-if(passwordForm){
+function validatePassword(){
+  const passwordForm = document.getElementById('passwordForm');
+  if(passwordForm){
   const passwordRe = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
   const currentPassword = document.getElementById('currentPassword');
@@ -219,7 +215,36 @@ if(passwordForm){
     }
 })
 }
-});
+}
+//Shfaqja/Fshehja e detajeve te porosive
+function OrderDetails() {
+  document.querySelectorAll('.order-card').forEach(card => {
+    const toggleBtn = card.querySelector('.view-button');
+    const details = card.querySelector('.order-details');
+
+    if (!toggleBtn || !details) return;
+
+    toggleBtn.addEventListener('click', () => {
+      const isOpen = card.classList.toggle('show-details');
+
+      toggleBtn.textContent = isOpen
+        ? 'Fshih detajet'
+        : 'Shiko detajet';
+    });
+  });
+}
+//Shfaqja e formes se password
+function togglePassword() {
+    const toggleBtn = document.getElementById('togglePassword');
+    const passwordForm = document.getElementById('passwordForm');
+
+    if (toggleBtn && passwordForm) {
+      toggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        passwordForm.classList.toggle('show');
+    });
+  }
+}
 
 
 

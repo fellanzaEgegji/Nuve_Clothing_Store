@@ -1,55 +1,61 @@
 <?php
+require_once 'OrderItem.php';
+
 class Order {
     private $id;
     private $date;
-    private $total;
     private $status;
-    private $statusClass;
-    private $items;
+    private $items = [];
 
-    public function __construct($id, $date, $total, $status, $statusClass, $items) {
+    public function __construct($id, $date, $status) {
         $this->id = $id;
         $this->date = $date;
-        $this->total = $total;
         $this->status = $status;
-        $this->statusClass = $statusClass;
-        $this->items = $items;
     }
+
     public function getId() {
         return $this->id;
     }
-    public function setId($id){
-        $this -> id = $id;
-    }
+
     public function getDate() {
         return $this->date;
     }
-    public function setDate($date){
-        $this -> date = $date;
-    }
-    public function getTotal() {
-        return $this->total;
-    }
-    public function setTotal($total){
-        $this -> total = $total;
-    }
+
     public function getStatus() {
         return $this->status;
     }
-    public function setStatus($status){
-        $this -> status = $status;
-    }
+
     public function getStatusClass() {
-        return $this->statusClass;
+        return match ($this->status) {
+            'Përfunduar' => 'completed',
+            'Në Proces'  => 'inprocess',
+            'Anuluar'    => 'cancelled',
+            default      => ''
+        };
     }
-    public function setStatusClass($statusClass){
-        $this -> statusClass = $statusClass;
+
+    public function addItem($item) {
+        $this->items[] = $item;
     }
+
     public function getItems() {
         return $this->items;
     }
-    public function setItems($items){
-        $this -> items = $items;
+
+    public function getTotal() {
+        $total = 0;
+        foreach ($this->items as $item) {
+            $total += $item->getSubtotal();
+        }
+        return round($total, 2);
+    }
+
+    public function cancel() {
+        if ($this->status === 'Në Proces') {
+            $this->status = 'Anuluar';
+            return true;
+        }
+        return false;
     }
 }
 ?>

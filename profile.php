@@ -1,6 +1,7 @@
 <?php
     require_once 'session.php';
     require_once 'User.php';
+    require_once 'Product.php';
     require_once 'Order.php';
     require_once 'OrderItem.php';
     Session::start();
@@ -15,57 +16,68 @@
         header("Location: login.php");
         exit;
     }
-    $user = new User(1, "Erblina", "Ramadani", "test@email.com");
-    // Porositë statike (shembull)
-    $orders = [
-    new Order(
-        "ORD-2024-001",
-        "15 Janar 2024",
-        "29.99€",
-        "Përfunduar",
-        "completed",
-        [
-            new OrderItem("Produkti 1", 1, "14.99€"),
-            new OrderItem("Produkti 2", 1, "15.00€")
-        ]
-    ),
-    new Order(
-        "ORD-2024-002",
-        "10 Janar 2024",
-        "45.50€",
-        "Përfunduar",
-        "completed",
-        [
-            new OrderItem("Produkti 1", 1, "25.50€"),
-            new OrderItem("Produkti 2", 1, "20.00€")
-        ]
-    ),
-    new Order(
-        "ORD-2023-015",
-        "5 Dhjetor 2023",
-        "12.99€",
-        "Anuluar",
-        "cancelled",
-        [
-            new OrderItem("Produkti 1", 1, "12.99€")
-        ]
-    )
-];
-$completed = 0;
-$inprocess = 0;
-$cancelled = 0;
+    $user = new User(1, "Erblina", "Ramadani", "test@email.com", "@Test123");
+    
+    if (!isset($_SESSION['orders'])) {
+        $product1 = new Product(1, 'Produkti 1', 100);
+        $product2 = new Product(2, 'Produkti 2', 50);
+        $product3 = new Product(3, 'Produkti 3', 25);
+        $product4 = new Product(4, 'Produkti 4', 60);
 
-foreach ($orders as $order) {
-    if ($order->getStatus() === "Përfunduar") {
-        $completed++;
+        $item1 = new OrderItem($product1, 2, 20);
+        $item2 = new OrderItem($product2, 1);
+        $item3 = new OrderItem($product3, 3, 10);
+        $item4 = new OrderItem($product4, 1);
+
+        $order1 = new Order(101, '2024-01-15', 'Përfunduar');
+        $order1->addItem($item1);
+        $order1->addItem($item2);
+
+        $order2 = new Order(102, '2024-01-18', 'Në Proces');
+        $order2->addItem($item3);
+        $order2->addItem($item4);
+
+        $order3 = new Order(103, '2024-01-20', 'Anuluar');
+        $order3->addItem($item2);
+        $order3->addItem($item3);
+
+        $order4 = new Order(102, '2024-07-28', 'Në Proces');
+        $order4->addItem($item3);
+        $order4->addItem($item4);
+
+        $_SESSION['orders'] = [$order1, $order2, $order3, $order4];
     }
-    if ($order->getStatus() === "Në Proces") {
-        $inprocess++;
+
+    $orders = $_SESSION['orders'];
+
+    $completed = 0;
+    $inprocess = 0;
+    $cancelled = 0;
+
+    foreach ($orders as $order) {
+        if ($order->getStatus() === "Përfunduar") {
+            $completed++;
+        }
+        if ($order->getStatus() === "Në Proces") {
+            $inprocess++;
+        }
+        if ($order->getStatus() === "Anuluar") {
+            $cancelled++;
+        }
     }
-    if ($order->getStatus() === "Anuluar") {
-        $cancelled++;
+
+    if(isset($_POST['cancel-order-id'])) {
+    $cancelId = $_POST['cancel-order-id'];
+    foreach($orders as $order) {
+        if($order->getId() == $cancelId) {
+            $order->cancel();
+        }
     }
+    $_SESSION['orders'] = $orders;
+    header("Location: profile.php"); 
+    exit;
 }
+
 ?>
 <!-- Struktura e user card -->
         <section class="profile">
@@ -95,17 +107,17 @@ foreach ($orders as $order) {
                 </div>
                 <form class="password-form" id="passwordForm" method="POST" action="" novalidate>
                     <div class="form-group">
-                        <label>Fjalëkalimi aktual</label>
+                        <p>Fjalëkalimi aktual</p>
                         <input type="password" name="current_password" id="currentPassword" autocomplete="current-password" required>
                         <div id="currentError" class="error" aria-live="polite"></div>
                     </div>
                     <div class="form-group">
-                        <label>Fjalëkalimi i ri</label>
+                        <p>Fjalëkalimi i ri</p>
                         <input type="password" name="new_password" id="newPassword" autocomplete="new-password" required>
                         <div id="newError" class="error" aria-live="polite"></div>
                     </div>
                     <div class="form-group">
-                        <label>Konfirmo fjalëkalimin</label>
+                        <p>Konfirmo fjalëkalimin</p>
                         <input type="password" name="confirm_password" id="confirmPassword" autocomplete="new-password" required>
                         <div id="confirmError" class="error" aria-live="polite"></div>
                     </div>
@@ -117,9 +129,9 @@ foreach ($orders as $order) {
     </section>
 
     <!-- Struktura e Porosive -->
-     <section class="orders-section">
+    <section class="orders-section">
+        <div class="orders-card">
         <h2>Porositë e mia</h2>
-        
         <?php if (empty($orders)): ?>
             <div class="no-orders">
                 <img src="library/empty-cart.png" alt="Nuk ka porosi">
@@ -127,46 +139,9 @@ foreach ($orders as $order) {
                 <p>Bëni blerjen tuaj të parë tani!</p>
                 <a href="products.php" class="shop-button">Shiko produktet</a>
             </div>
-        <?php else: ?>
+            <?php else: ?>
             <div class="orders-container">
-                <?php foreach ($orders as $order): ?>
-                <div class="order-card">
-                    <div class="order-header">
-                        <div class="order-info">
-                            <div class="order-id"><h4>Porosia:</h4><?php echo $order->getId(); ?></div>
-                            <div class="order-date"><?php echo $order->getDate(); ?></div>
-                        </div>
-                        <div class="order-header-R">
-                            <div class="order-status">
-                                <div class="status-class <?php echo $order->getStatusClass(); ?>">
-                                    <?php echo $order->getStatus(); ?>
-                                </div>
-                                <div class="order-total"><h4>Total:</h4> <?php echo $order->getTotal(); ?></div>
-                            </div>
-                            <button class="view-button">Shiko detajet</button>
-                        </div>
-                    </div>
-                    
-                    <div class="order-items">
-                        <h4>Produktet:</h4>
-                        <?php foreach ($order->getItems() as $item): ?>
-                        <div class="order-item">
-                            <div class="item-name"><?php echo $item->getName(); ?></div>
-                            <div class="item-qty">x<?php echo $item->getQty(); ?></div>
-                            <div class="item-price"><?php echo $item->getPrice(); ?></div>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
-                    
-                    <div class="order-actions">
-                        <button class="hide-button">Fshih detajet</button>
-                        <button class="repeat-button">Përsërit porosinë</button>
-                    </div>
-                </div>
-                <?php endforeach; ?>
-            </div>
-            
-            <div class="orders-stats">
+                <div class="orders-stats">
                 <div class="stat-box">
                     <h3>Total Porosi</h3>
                     <p><?php echo count($orders); ?></p>
@@ -184,7 +159,50 @@ foreach ($orders as $order) {
                     <p><?php echo $cancelled; ?></p>
                 </div>
             </div>
+                <?php foreach ($orders as $order): ?>
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <div class="order-id"><?php echo $order->getId(); ?></div>
+                            <div class="order-date"><?php echo $order->getDate(); ?></div>
+                        </div>
+                        <div class="order-header-R">
+                            <div class="status-class <?php echo $order->getStatusClass(); ?>">
+                                    <?php echo $order->getStatus(); ?>
+                            </div>
+                            <div class="order-status">
+                                <div class="order-total"><?php echo $order->getTotal(); ?>€</div>
+                                <button class="order-button view-button">Shiko detajet</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-details">
+                        <div class="order-items">
+                            <h4>Produktet:</h4>
+                            <?php foreach ($order->getItems() as $item): ?>
+                            <div class="order-item">
+                                <div class="item-name"><?php echo $item->getProduct()->getName(); ?></div>
+                                <div class="item-qty">x<?php echo $item->getQty(); ?></div>
+                                <div class="item-price"><?php echo $item->getPrice(); ?>€</div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                    
+                        <div class="order-actions">
+                            <button class="order-button">Përsërit porosinë</button>
+                            <?php if($order->getStatus() === 'Në Proces'): ?>
+                                <form method="POST">
+                                    <input type="hidden" name="cancel-order-id" value="<?php echo $order->getId(); ?>">
+                                    <button type="submit" class="order-button" >Anulo porosinë</button>
+                                </form>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
         <?php endif; ?>
+        </div>
     </div>
 </section>
 
