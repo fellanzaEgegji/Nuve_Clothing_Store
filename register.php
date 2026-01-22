@@ -1,5 +1,9 @@
 <?php
     require_once 'session.php';
+    require_once 'Auth.php';
+
+    Session::start();
+
     if (isset($_POST['submit'])) {
 
     $emri      = $_POST['emri'] ?? '';
@@ -11,11 +15,13 @@
     if (!empty($emri) && !empty($mbiemri) && !empty($email) 
         && !empty($password) && !empty($confirm)) {
 
-        if ($password === $confirm) {
-            header("Location:login.php");
-            exit; 
+        $result = Auth::register($emri, $mbiemri, $email, $password, $confirm);
+
+        if ($result === true) {
+            header("Location: login.php");
+            exit;
         } else {
-            $error = "Fjalëkalimet nuk përputhen!";
+            $error = $result;
         }
 
     } else {
@@ -24,7 +30,7 @@
 }
 
  $page_css = "register.css";
-    include_once 'header.php';
+include_once 'header.php';
 ?>
 
 <?php if (isset($error)): ?>

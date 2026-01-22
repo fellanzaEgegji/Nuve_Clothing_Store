@@ -13,19 +13,36 @@ class Auth {
     ];
 
     public static function login($email, $password) {
-        if (
-            $email === self::$fakeUser['email'] &&
-            $password === self::$fakeUser['password']
-        ) {
-            $_SESSION['userID'] = self::$fakeUser['userID'];
-            $_SESSION['email'] = self::$fakeUser['email'];
+        if (isset($_SESSION['registeredUser'])) {
+        $u = $_SESSION['registeredUser'];
+
+        if ($email === $u['email'] && $password === $u['password']) {
+            $_SESSION['userID'] = 2; // ID simbolik
+            $_SESSION['email']  = $u['email'];
 
             return new User(
-                self::$fakeUser['firstName'],
-                self::$fakeUser['lastName'],
-                self::$fakeUser['email']
+                $u['firstName'],
+                $u['lastName'],
+                $u['email']
             );
         }
-        return false;
+    }
+
+    }
+    public static function register($firstName, $lastName, $email, $password, $confirm) {
+
+        if ($password !== $confirm) {
+            return "Fjalëkalimet nuk përputhen!";
+        }
+
+        // Simulim
+        $_SESSION['registeredUser'] = [
+            'firstName' => $firstName,
+            'lastName'  => $lastName,
+            'email'     => $email,
+            'password'  => $password 
+        ];
+
+        return true;
     }
 }
