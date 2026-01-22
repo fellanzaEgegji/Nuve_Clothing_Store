@@ -17,16 +17,20 @@ class Auth {
         $u = $_SESSION['registeredUser'];
 
         if ($email === $u['email'] && $password === $u['password']) {
-            $_SESSION['userID'] = 2; // ID simbolik
+
+            $_SESSION['userID'] = 2;
             $_SESSION['email']  = $u['email'];
 
             return new User(
+                2,                   
                 $u['firstName'],
                 $u['lastName'],
-                $u['email']
+                $u['email'],
+                $u['password']
             );
         }
     }
+    return false;
 
     }
     public static function register($firstName, $lastName, $email, $password, $confirm) {

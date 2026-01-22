@@ -7,7 +7,7 @@ class User {
     private $password;
 
     public function __construct($userID, $firstName, $lastName, $email, $password) {
-        $this->$userID = $userID;
+        $this->userID = $userID;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;

@@ -5,10 +5,17 @@
     require_once 'Order.php';
     require_once 'OrderItem.php';
     Session::start();
-    if (!Session::isLoggedIn()){
+    if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$user = unserialize($_SESSION['user']);
+
+    /*if (!Session::isLoggedIn()){
         header("Location: login.php");
         exit;
-    }
+    }*/
     $page_css = "profile.css";
     require_once 'header.php';
     if (isset($_POST['logout'])) {
@@ -16,7 +23,7 @@
         header("Location: login.php");
         exit;
     }
-    $user = new User(1, "Erblina", "Ramadani", "test@email.com", "@Test123");
+    //$user = new User(1, "Erblina", "Ramadani", "test@email.com", "@Test123");
     
     if (!isset($_SESSION['orders'])) {
         $product1 = new Product(1, 'Produkti 1', 100);

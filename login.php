@@ -14,6 +14,7 @@
         $user = Auth::login($email, $password);
 
         if ($user) {
+            $_SESSION['user'] = serialize($user);
             header("Location: index.php");
             exit;
         } else {
