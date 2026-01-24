@@ -1,11 +1,12 @@
 <?php
 require_once 'User.php';
 require_once 'Database.php';
+require_once 'session.php';
 
 class Auth {
     public static function register($first_name, $last_name, $email, $password, $confirm) {
 
-        // Kontrollo nëse fjalëkalimet përputhen
+        // Kontrollohet nëse fjalëkalimet përputhen
         if ($password !== $confirm) {
             return "Fjalëkalimet nuk përputhen!";
         }
@@ -14,7 +15,7 @@ class Auth {
         $db = new Database();
         $conn = $db->getConnection();
 
-        // Kontrollo nëse email ekziston
+        // Kontrollohet nëse email ekziston
         $check = $conn->prepare("SELECT id FROM users WHERE email = :email");
         $check->bindParam(':email', $email);
         $check->execute();
@@ -38,7 +39,7 @@ class Auth {
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $hashedPassword);
 
-        // Ekzekutohet query-n
+        // Ekzekutohet query
         if ($stmt->execute()) {
             return true;
         } else {
