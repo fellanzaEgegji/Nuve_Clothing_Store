@@ -1,52 +1,74 @@
 <?php
 require_once 'User.php';
+require_once 'Database.php';
 
 class Auth {
+    public static function register($first_name, $last_name, $email, $password, $confirm) {
 
-    // Simulim i user-it
-    private static $fakeUser = [
-        'email' => 'test@email.com',
-        'password' => 'Test@123', 
-        'userID' => 1,
-        'firstName' => 'Erblina',
-        'lastName' => 'Ramadani'
-    ];
-
-    public static function login($email, $password) {
-        if (isset($_SESSION['registeredUser'])) {
-        $u = $_SESSION['registeredUser'];
-
-        if ($email === $u['email'] && $password === $u['password']) {
-
-            $_SESSION['userID'] = 2;
-            $_SESSION['email']  = $u['email'];
-
-            return new User(
-                2,                   
-                $u['firstName'],
-                $u['lastName'],
-                $u['email'],
-                $u['password']
-            );
-        }
-    }
-    return false;
-
-    }
-    public static function register($firstName, $lastName, $email, $password, $confirm) {
-
+        // Kontrollo nëse fjalëkalimet përputhen
         if ($password !== $confirm) {
             return "Fjalëkalimet nuk përputhen!";
         }
 
-        // Simulim
-        $_SESSION['registeredUser'] = [
-            'firstName' => $firstName,
-            'lastName'  => $lastName,
-            'email'     => $email,
-            'password'  => $password 
-        ];
+        // Lidhja me DB
+        $db = new Database();
+        $conn = $db->getConnection();
 
-        return true;
+        // Kontrollo nëse email ekziston
+        $check = $conn->prepare("SELECT id FROM users WHERE email = :email");
+        $check->bindParam(':email', $email);
+        $check->execute();
+
+        if ($check->rowCount() > 0) {
+            return "Email ekziston!";
+        }
+
+        // Futet përdoruesi në DB me bindParam
+        $stmt = $conn->prepare(
+            "INSERT INTO users (first_name, last_name, email, password)
+             VALUES (:first_name, :last_name, :email, :password)"
+        );
+
+        // Hash fjalëkalimin
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Bind parametrat
+        $stmt->bindParam(':first_name', $first_name);
+        $stmt->bindParam(':last_name', $last_name);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $hashedPassword);
+
+        // Ekzekutohet query-n
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return "Gabim gjatë regjistrimit!";
+        }
     }
+    public static function login($email, $password) {
+    $db = new Database();
+    $conn = $db->getConnection();
+
+    $stmt = $conn->prepare("SELECT id, first_name, last_name, email, password FROM users WHERE email = :email");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (password_verify($password, $user['password'])) {
+            Session::start();
+            $_SESSION['userID'] = $user['id'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['first_name'] = $user['first_name'];
+            $_SESSION['last_name'] = $user['last_name'];
+            return $user;
+        }
+    }
+
+    return false;
 }
+}
+
+
+
