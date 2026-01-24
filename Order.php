@@ -1,13 +1,13 @@
 <?php
 require_once 'OrderItem.php';
-
 class Order {
     private $id;
+    private $user;
     private $date;
     private $status;
     private $items = [];
 
-    public function __construct($id, $date, $status) {
+    public function __construct($id, $user, $date, $status) {
         $this->id = $id;
         $this->date = $date;
         $this->status = $status;
@@ -16,15 +16,21 @@ class Order {
     public function getId() {
         return $this->id;
     }
-
+    public function setId($id) {
+        $this->id = $id;
+    }
     public function getDate() {
         return $this->date;
     }
-
+    public function setDate($date) {
+        $this->date = $date;
+    }
     public function getStatus() {
         return $this->status;
     }
-
+    public function setStatus($status) {
+        $this->status = $status;
+    }
     public function getStatusClass() {
         return match ($this->status) {
             'Përfunduar' => 'completed',

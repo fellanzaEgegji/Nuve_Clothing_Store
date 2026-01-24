@@ -26,21 +26,33 @@ class OrderItem {
     public function getProduct() {
         return $this->product;
     }
-
+    public function setProduct($product) {
+        $this->product = $product;
+    }
     public function getQty() {
         return $this->qty;
+    }
+    public function setQty($qty) {
+        $this->qty = $qty;
     }
 
     public function getSale() {
         return $this->sale;
     }
-
+    public function setSale($sale) {
+        $this->sale = $sale;
+    }
     public function getPrice() {
         return $this->priceAtPurchase;
     }
-
+    public function setPrice($price) {
+        $this->price = $price;
+    }
     public function getSubtotal() {
         return round($this->priceAtPurchase * $this->qty, 2);
+    }
+    public function setSubtotal($subtotal) {
+        $this->subtotal = $subtotal;
     }
 }
 ?>

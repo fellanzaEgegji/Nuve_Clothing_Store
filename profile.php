@@ -41,7 +41,7 @@
         $order3->addItem($item2);
         $order3->addItem($item3);
 
-        $order4 = new Order(102, '2024-07-28', 'Në Proces');
+        $order4 = new Order(104, '2024-07-28', 'Në Proces');
         $order4->addItem($item3);
         $order4->addItem($item4);
 
