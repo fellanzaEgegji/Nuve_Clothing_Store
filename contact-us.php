@@ -28,7 +28,7 @@
     }
 
     if (isset($_POST['send'])) {
-        if (!$userID) { // nuk ka ID valide
+        if (!$userID) {
             $error = "Duhet të jeni të kyçur për të dërguar mesazhin.";
         } else {
             $phone = $_POST['phone'] ?? '';
