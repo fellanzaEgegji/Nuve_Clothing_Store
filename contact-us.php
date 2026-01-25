@@ -1,44 +1,52 @@
 <?php
     require_once 'session.php';
-    /* Për testim */ 
-    /*
-    $_SESSION['role'] = 'user';
-    $_SESSION['emri'] = 'Erblina';
-    $_SESSION['mbiemri'] = 'Ramadani';
-    $_SESSION['email'] = 'test@email.com';
-    */
+    require_once 'Database.php';
+    require_once 'Auth.php';
+    require_once 'ContactMessage.php';
+    require_once 'ContactMessageRepository.php';
+    Session::start();
     $page_css = "about&contact.css";
     require_once 'header.php';
-
     $error = "";
     $success = "";
 
-    if (isset($_POST['send'])) {
+    $phone = '';
+    $message = '';
 
-        if (!isset($_SESSION['role'])) {
+    $emri = '';
+    $mbiemri = '';
+    $email = '';
+    $userID = null;
+
+    // Kontrollo nëse user është kyçur dhe session ka ID
+    if (Session::isLoggedIn() && isset($_SESSION['userID'])) {
+        $userID = $_SESSION['userID'];    
+        $user = unserialize($_SESSION['user']);
+        $emri = $user->getFirstName();
+        $mbiemri = $user->getLastName();
+        $email = $user->getEmail();
+    }
+
+    if (isset($_POST['send'])) {
+        if (!$userID) { // nuk ka ID valide
             $error = "Duhet të jeni të kyçur për të dërguar mesazhin.";
         } else {
+            $phone = $_POST['phone'] ?? '';
+            $message = $_POST['message'] ?? '';
 
-            $emri = $_POST['emri'] ?? '';
-            $mbiemri = $_POST['mbiemri'] ?? '';
-            $email = $_POST['email'] ?? '';
+            if (!empty($phone) && !empty($message) && $userID) {
+                $contactMessage = new ContactMessage($userID, $emri, $mbiemri, $email, $phone, $message);
 
-            if (
-                $emri !== $_SESSION['emri'] ||
-                $mbiemri !== $_SESSION['mbiemri'] ||
-                $email !== $_SESSION['email']
-            ) {
-                $error = "Të dhënat nuk përputhen me llogarinë tuaj.";
-            } else {
+                $db = new Database();
+                $repo = new ContactMessageRepository($db->getConnection());
 
-                $phone = $_POST['phone'] ?? '';
-                $message = $_POST['message'] ?? '';
-
-                if (!empty($phone) && !empty($message)) {
+                if ($repo->save($contactMessage)) {
                     $success = "Mesazhi u dërgua me sukses!";
                 } else {
-                    $error = "Ju lutem plotësoni të gjitha fushat.";
+                    $error = "Gabim gjatë dërgimit të mesazhit!";
                 }
+            } else {
+                $error = "Ju lutem plotësoni të gjitha fushat.";
             }
         }
     }
@@ -61,17 +69,17 @@
         <form class="contact-form" id="contact-form" method="POST" novalidate>
             <div class="form-group">
                 <p>Emri</p>
-                <input type="text" id="emri" name="emri" placeholder="Shkruani emrin" required>
+                <input type="text" id="emri" name="emri" value="<?= htmlspecialchars($emri) ?>" required>
                 <div id="emriError" class="error" aria-live="polite"></div>
             </div>
             <div class="form-group">
                 <p>Mbiemri</p>
-                <input type="text" id="mbiemri" name="mbiemri" placeholder="Shkruani mbiemrin" required>
+                <input type="text" id="mbiemri" name="mbiemri" value="<?= htmlspecialchars($mbiemri) ?>" required>
                 <div id="mbiemriError" class="error" aria-live="polite"></div>
             </div>
             <div class="form-group">
                 <p>Email</p>
-                <input type="email" id="email" name="email" placeholder="Shkruani email-in" required>
+                <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required>
                 <div id="emailError" class="error" aria-live="polite"></div>
             </div>
             <div class="form-group">

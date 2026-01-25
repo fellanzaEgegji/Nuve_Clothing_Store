@@ -15,6 +15,7 @@
 
         if ($user) {
             $_SESSION['user'] = serialize($user);
+            $_SESSION['userID'] = $user->getUserId(); 
             header("Location: index.php");
             exit;
         } else {

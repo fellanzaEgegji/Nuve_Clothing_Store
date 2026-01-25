@@ -4,14 +4,12 @@ class User {
     private $firstName;
     private $lastName;
     private $email;
-    private $password;
 
-    public function __construct($userID, $firstName, $lastName, $email, $password) {
+    public function __construct($userID, $firstName, $lastName, $email) {
         $this->userID = $userID;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
-        $this->password = $password;
     }
 
     public function getUserID() {
@@ -39,12 +37,6 @@ class User {
     }
     public function setEmail($email){
         $this -> email = $email;
-    }
-    public function getPassword() {
-        return $this->password;
-    }
-    public function setPassword($password){
-        $this -> password = $password;
     }
 }
 ?>
