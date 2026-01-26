@@ -39,6 +39,11 @@ class Order {
             default      => ''
         };
     }
+    public function getUserId() {
+    return $this->user; // user është ID e përdoruesit
+}
+
+
 
     public function addItem($item) {
         $this->items[] = $item;

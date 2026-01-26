@@ -1,5 +1,8 @@
 <?php
 require_once 'session.php';
+require_once 'ShoppingCart.php';
+Session::start();
+$cart = new ShoppingCart();
 
 if(!isset($_SESSION['cart'])){
     $_SESSION['cart']=[1 =>[
@@ -15,7 +18,7 @@ if(!isset($_SESSION['cart'])){
     ];
 }
 
-if(isset($_POST['update'])){
+/*if(isset($_POST['update'])){
     $id = $_POST['id'];
     $qty = (int)$_POST['quantity'];
 
@@ -26,26 +29,44 @@ if(isset($_POST['update'])){
 if(isset($_POST['remove'])){
     $id = $_POST['id'];
     unset($_SESSION['cart'][$id]);
+}*/
+if (isset($_POST['update'])) {
+    $cart->updateQuantity($_POST['id'], (int)$_POST['quantity']);
 }
+
+if (isset($_POST['remove'])) {
+    $cart->removeItem($_POST['id']);
+}
+
 $page_css = "cart.css";
 include_once 'header.php';
+
+$totalQty   = $cart->getTotalQuantity();
+$grandTotal = $cart->getGrandTotal();
+$items      = $cart->getItems();
 ?>
 <!--Struktura e shportës-->
 <div class="cart-container">
     <?php
-        $totalQty = 0;
-        $grandTotal = 0;
-        foreach ($_SESSION['cart'] as $item) {
-            $totalQty += $item['quantity'];
-            $grandTotal += $item['price'] * $item['quantity'];
-        }
-    ?>
+$totalQty = 0;
+$grandTotal = 0;
+
+if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $item) {
+        $totalQty   = $cart->getTotalQuantity();
+        $grandTotal = $cart->getGrandTotal();
+    }
+}
+?>
 
     <h1>Shporta juaj(<?= $totalQty?>)</h1>
     <p><strong>Total i shportës: </strong><?= $grandTotal ?>€</p>
 
-    <?php foreach($_SESSION['cart'] as $id => $item): ?>
-        <?php $productTotal = $item['price'] * $item['quantity']; ?>
+     <?php if (!empty($cart->getItems())): ?>
+
+        <?php foreach ($cart->getItems() as $id => $item): ?>
+            <?php $productTotal = $item['price'] * $item['quantity']; ?>
+
         <div class="cart-card">
             <p class="delivery">📦 Dorëzohet nga <strong><?= $item['brand']?></strong></p>
 
@@ -81,6 +102,14 @@ include_once 'header.php';
             </div>
         </div>
     <?php endforeach; ?>
+    <form action="checkout.php" method="POST">
+    <button type="submit">Përfundo Porosinë</button>
+</form>
+<?php else: ?>
+        <!-- Mesazh kur shporta është bosh -->
+        <p>Shporta juaj është bosh.</p>
+    <?php endif; ?>
+
 </div>
 <script src="cart.js"></script>
 <?php require_once 'footer.php' ?>

@@ -9,7 +9,7 @@ class Product {
     private $imageUrl;
     private $createdBy;
 
-    public function __construct($id, $name, $description, $price, $sale, $stock, $createdBy) {
+    public function __construct($id, $name, $description, $price, $sale, $stock, $imageUrl, $createdBy) {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
