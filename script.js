@@ -12,14 +12,14 @@ hamburger.addEventListener("click", () => {
 let i = 0;
 
 let desktopImgs = [
-  "library/hero1.webp",
-  "library/hero2.webp",
-  "library/hero4.webp"
+  "library/desktopHero1.webp",
+  "library/desktopHero2.webp",
+  "library/desktopHero3.webp"
 ];
 
 let mobileImgs = [
-  "library/hero3.jpeg",
-  "library/hero5.jpeg"
+  "library/mobileHero1.jpeg",
+  "library/mobileHero2.jpeg"
 ];
 
 const slideshow = document.getElementById("slideshow");

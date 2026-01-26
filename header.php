@@ -22,8 +22,16 @@
                 <a href="dashboard.php"><img src="library/dashboard.png" alt=""></a>
                 <?php endif; ?>
                 <a href=""><img src="library/search.png" alt="search"></a>
-                <a href="register.php"><img src="library/profile.png" alt="profile"></a>
-                <a href=""><img src="library/cart.png" alt="cart"></a>
+                <?php if (Session::isLoggedIn()): ?>
+                    <a href="profile.php">
+                        <img src="library/profile.png" alt="Profile">
+                    </a>
+                <?php else: ?>
+                    <a href="login.php">
+                        <img src="library/profile.png" alt="Login">
+                    </a>
+                <?php endif; ?>
+                <a href="cart.php"><img src="library/cart.png" alt="cart"></a>
             </div>
             <div class="hamburger" id="hamburger">
                 <span></span>
