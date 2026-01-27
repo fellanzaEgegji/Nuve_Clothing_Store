@@ -59,18 +59,10 @@ class Auth {
 
         if (password_verify($password, $data['password'])) {
             Session::start();
-            $userObj = new User(
-                $data['id'],
-                $data['first_name'],
-                $data['last_name'],
-                $data['email']
-            );
+           
+            $_SESSION['user_id'] = $data['id'];
 
-            $_SESSION['user'] = serialize($userObj);
-
-            $_SESSION['userID'] = $data['id'];
-
-            return $userObj;
+            return new User($data['id'], $data['first_name'], $data['last_name'], $data['email']);
         }
     }
 

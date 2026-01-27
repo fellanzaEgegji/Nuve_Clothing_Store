@@ -9,6 +9,7 @@ class Order {
 
     public function __construct($id, $user, $date, $status) {
         $this->id = $id;
+        $this->user = $user;
         $this->date = $date;
         $this->status = $status;
     }
@@ -40,10 +41,8 @@ class Order {
         };
     }
     public function getUserId() {
-    return $this->user; // user është ID e përdoruesit
-}
-
-
+    return $this->user;
+    }
 
     public function addItem($item) {
         $this->items[] = $item;

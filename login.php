@@ -9,24 +9,15 @@
 
     $email = $_POST['email'] ?? '';
     $password    = $_POST['password'] ?? '';
-
-    if (!empty($email) && !empty($password)) {
-        $user = Auth::login($email, $password);
-
-        if ($user) {
-            $_SESSION['user'] = serialize($user);
-            $_SESSION['userID'] = $user->getUserId(); 
-            header("Location: index.php");
-            exit;
-        } else {
-            $error = "Email ose fjalëkalimi është gabim!";
-        }
-
+    $loginSuccess = Auth::login($email, $password);
+    if ($loginSuccess) {
+        header("Location: index.php");
+        exit;
     } else {
-        $error = "Ju lutem plotësoni të gjitha fushat!";
+        echo "Email ose fjalëkalim i gabuar!";
     }
-}
 
+}
     $page_css = "login.css";
     include_once 'header.php';
 ?>
