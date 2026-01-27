@@ -81,6 +81,48 @@
     font-size: 16px;
     color: #555;
 }
+/*Shtimi i komenteve*/
+.add-testimonial {
+    padding: 20px;
+    background: #f3f3f3;
+    margin: 20px auto 40px auto;
+    max-width: 600px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+.add-testimonial h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.add-testimonial input,
+.add-testimonial textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    resize: vertical;
+}
+.add-testimonial button {
+    width: 100%;
+    padding: 12px;
+    cursor: pointer;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    transition: background 0.3s;
+}
+.add-testimonial button:hover {
+    background: #333;
+}
+
 /*Slider i komenteve*/
 .testimonials{
     padding: 50px 0 80px 0;
