@@ -56,16 +56,16 @@ class Auth {
 
     if ($stmt->rowCount() > 0) {
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
-
         if (password_verify($password, $data['password'])) {
             Session::start();
-           
-            $_SESSION['user_id'] = $data['id'];
 
-            return new User($data['id'], $data['first_name'], $data['last_name'], $data['email']);
+            $_SESSION['user_id'] = $data['id'];
+            $user = new User($data['id'], $data['first_name'], $data['last_name'], $data['email']);
+            $_SESSION['user'] = serialize($user);
+
+            return $user;
         }
     }
-
     return false;
 }
 }

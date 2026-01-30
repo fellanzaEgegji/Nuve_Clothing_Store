@@ -19,8 +19,8 @@
     $userID = null;
 
     // Kontrollo nëse user është kyçur dhe session ka ID
-    if (Session::isLoggedIn() && isset($_SESSION['userID'])) {
-        $userID = $_SESSION['userID'];    
+    if (Session::isLoggedIn() && isset($_SESSION['user_id'])) {
+        $userID = $_SESSION['user_id'];    
         $user = unserialize($_SESSION['user']);
         $emri = $user->getFirstName();
         $mbiemri = $user->getLastName();
