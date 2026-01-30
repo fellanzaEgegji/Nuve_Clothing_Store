@@ -179,6 +179,49 @@ body{
         font-size: 13px;
     }
 }
+/* Stilizimi i checkout*/
+.checkout-result {
+    max-width: 500px;
+    margin: 120px auto;
+    padding: 40px 35px;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+
+.checkout-result h1 {
+    font-size: 26px;
+    margin-bottom: 15px;
+    color: #111;
+}
+.checkout-result p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 25px;
+}
+.checkout-result strong {
+    color: #000;
+}
+
+.checkout-result .btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 14px 30px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+.checkout-result .btn:hover {
+    background: #222;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
 /* Footer*/
 .footer {
     margin: 0px;

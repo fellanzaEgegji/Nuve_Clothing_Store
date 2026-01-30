@@ -1,6 +1,7 @@
 <?php
 require_once 'session.php';
 require_once 'ShoppingCart.php';
+require_once 'ProductRepository.php';
 Session::start();
 $cart = new ShoppingCart();
 

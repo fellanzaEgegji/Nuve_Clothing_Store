@@ -65,6 +65,9 @@ $db = new Database();
 $conn = $db->getConnection();
 $repo = new OrderRepository($conn);
 
+$success = false;
+$errorMessage = '';
+
 try {
     $orderId = $repo->save($order);
     $cart->clear(); 
@@ -73,6 +76,27 @@ try {
     echo "<pre>" . $e->getMessage() . "</pre>";
     exit;
 }
+$page_css = "cart.css";
+include_once 'header.php';
+
+
 ?>
+
+<div class="checkout-result">
+    <?php if (!$success): ?>
+        <h1>✅ Porosia u krye me sukses!</h1>
+        <p>Numri i porosisë: <strong>#<?= $orderId ?></strong></p>
+
+        <a href="index.php" class="btn">⬅ Kthehu në Dyqan</a>
+
+    <?php else: ?>
+        <h1>❌ Gabim gjatë porosisë</h1>
+        <p><?= htmlspecialchars($errorMessage) ?></p>
+
+        <a href="cart.php" class="btn">⬅ Kthehu në Shportë</a>
+    <?php endif; ?>
+</div>
+
+<?php include 'footer.php'; ?>
 
 
