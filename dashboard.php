@@ -1,5 +1,14 @@
 <?php
     require_once 'session.php';
+    require_once 'Database.php';
+    require_once 'ProductRepository.php';
+
+    $db = new Database();
+    $conn = $db->getConnection(); 
+
+    $productRepo = new ProductRepository($conn);
+    $products = $productRepo->getAllProducts();
+
     $page_css = "dashboard.css";
     require_once 'header.php';
 ?>
@@ -41,6 +50,44 @@
                 </div>
             </div>
         </section>
+        <!--Products Section-->
+    <section id="products" class="section">
+        <div class="section-header">
+            <h2>Produktet</h2>
+            <a href="add-product.php" class="btn-primary">+ Shto Produkt</a>
+        </div>
+
+        <table class="products-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Emri</th>
+                    <th>Çmimi</th>
+                    <th>Zbritja</th>
+                    <th>Stoku</th>
+                    <th>Aksione</th>
+                </tr>
+            </thead>
+           <tbody>
+                <?php foreach ($products as $product): ?>
+                    <tr>
+                        <td><?= $product['id'] ?></td>
+                        <td><?= htmlspecialchars($product['name']) ?></td>
+                        <td><?= $product['price'] ?> €</td>
+                        <td><?= $product['sale'] ?>%</td>
+                        <td><?= $product['stock'] ?></td>
+                        <td class="actions">
+                        <a href="edit-product.php?id=<?= $product['id'] ?>" class="btn-edit">Edit</a>
+                        <a href="delete-product.php?id=<?= $product['id'] ?>"
+                           class="btn-delete"
+                           onclick="return confirm('A je i sigurt?')">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </section>
+
         <!-- Orders Section -->
         <section id="orders" class="section">
             <h2>Porositë</h2>

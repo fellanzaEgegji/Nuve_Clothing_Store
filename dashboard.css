@@ -176,6 +176,64 @@ table th, table td {
 table tbody tr:hover {
     background-color: #f1f5f9;
 }
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #1f2937;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #374151;
+}
+
+/* Products table */
+.products-table td,
+.products-table th {
+    vertical-align: middle;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit {
+    background-color: #3b82f6;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-delete {
+    background-color: #ef4444;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-edit:hover {
+    background-color: #2563eb;
+}
+
+.btn-delete:hover {
+    background-color: #dc2626;
+}
+
 
 /* Stilizimi i footer-it */
 .footer {
