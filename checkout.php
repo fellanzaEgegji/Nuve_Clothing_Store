@@ -86,6 +86,7 @@ include_once 'header.php';
     <?php if (!$success): ?>
         <h1>✅ Porosia u krye me sukses!</h1>
         <p>Numri i porosisë: <strong>#<?= $orderId ?></strong></p>
+        <p>Ju faleminderit!</p>
 
         <a href="index.php" class="btn">⬅ Kthehu në Dyqan</a>
 

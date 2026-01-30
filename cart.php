@@ -19,18 +19,6 @@ if(!isset($_SESSION['cart'])){
     ];
 }
 
-/*if(isset($_POST['update'])){
-    $id = $_POST['id'];
-    $qty = (int)$_POST['quantity'];
-
-    if($qty > 0){
-        $_SESSION['cart'][$id]['quantity'] = $qty;
-    }
-}
-if(isset($_POST['remove'])){
-    $id = $_POST['id'];
-    unset($_SESSION['cart'][$id]);
-}*/
 if (isset($_POST['update'])) {
     $cart->updateQuantity($_POST['id'], (int)$_POST['quantity']);
 }
@@ -101,10 +89,15 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                     <button type="submit" name="remove" class="remove">🗑️</button>
                 </form>
             </div>
+            <div class="checkout-wrapper">
+            <form action="checkout.php" method="POST">
+                <button type="submit" class="checkout-btn">Përfundo Porosinë</button>
+            </form>
         </div>
+        </div>
+
     <?php endforeach; ?>
-    <form action="checkout.php" method="POST">
-    <button type="submit">Përfundo Porosinë</button>
+    
 </form>
 <?php else: ?>
         <!-- Mesazh kur shporta është bosh -->
