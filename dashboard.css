@@ -196,10 +196,9 @@ table tbody tr:hover {
 .btn-primary:hover {
     background-color: #374151;
 }
-
-/* Products table */
-.products-table td,
-.products-table th {
+/* Stilizimi i dashboard tables */
+.dashboard-table td,
+.dashboard-table th {
     vertical-align: middle;
 }
 
@@ -233,7 +232,6 @@ table tbody tr:hover {
 .btn-delete:hover {
     background-color: #dc2626;
 }
-
 
 /* Stilizimi i footer-it */
 .footer {

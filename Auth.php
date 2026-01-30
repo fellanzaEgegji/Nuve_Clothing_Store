@@ -50,7 +50,7 @@ class Auth {
     $db = new Database();
     $conn = $db->getConnection();
 
-    $stmt = $conn->prepare("SELECT id, first_name, last_name, email, password FROM users WHERE email = :email");
+    $stmt = $conn->prepare("SELECT id, first_name, last_name, email, password, role FROM users WHERE email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
 
@@ -62,7 +62,7 @@ class Auth {
             $_SESSION['user_id'] = $data['id'];
             $user = new User($data['id'], $data['first_name'], $data['last_name'], $data['email']);
             $_SESSION['user'] = serialize($user);
-
+            $_SESSION['role'] = $data['role'];
             return $user;
         }
     }

@@ -1,3 +1,7 @@
+<?php
+require_once 'session.php';
+Session::start();
+?>
 <!DOCTYPE HTML>
 <html>
     <head>

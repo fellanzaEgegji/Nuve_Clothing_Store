@@ -1,16 +1,23 @@
 <?php
     require_once 'session.php';
+    $page_css = "dashboard.css";
+    require_once 'header.php';
     require_once 'Database.php';
+    require_once 'OrderRepository.php';
     require_once 'ProductRepository.php';
+    require_once 'ContactMessageRepository.php';
 
     $db = new Database();
-    $conn = $db->getConnection(); 
-
+    $conn = $db->getConnection();
+    
     $productRepo = new ProductRepository($conn);
     $products = $productRepo->getAllProducts();
 
-    $page_css = "dashboard.css";
-    require_once 'header.php';
+    $orderRepo = new OrderRepository($conn);
+    $orders = $orderRepo->getAllOrders();
+
+    $messagesRepo = new ContactMessageRepository($conn);
+    $messages = $messagesRepo->getAllMessages();
 ?>
 <section class="dashboard">
 
@@ -51,47 +58,46 @@
             </div>
         </section>
         <!--Products Section-->
-    <section id="products" class="section">
-        <div class="section-header">
-            <h2>Produktet</h2>
-            <a href="add-product.php" class="btn-primary">+ Shto Produkt</a>
-        </div>
+        <section id="products" class="section">
+            <div class="section-header">
+                <h2>Produktet</h2>
+                <a href="add-product.php" class="btn-primary">+ Shto Produkt</a>
+            </div>
 
-        <table class="products-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Emri</th>
-                    <th>Çmimi</th>
-                    <th>Zbritja</th>
-                    <th>Stoku</th>
-                    <th>Aksione</th>
-                </tr>
-            </thead>
-           <tbody>
-                <?php foreach ($products as $product): ?>
+            <table class="dashboard-table">
+                <thead>
                     <tr>
-                        <td><?= $product['id'] ?></td>
-                        <td><?= htmlspecialchars($product['name']) ?></td>
-                        <td><?= $product['price'] ?> €</td>
-                        <td><?= $product['sale'] ?>%</td>
-                        <td><?= $product['stock'] ?></td>
-                        <td class="actions">
-                        <a href="edit-product.php?id=<?= $product['id'] ?>" class="btn-edit">Edit</a>
-                        <a href="delete-product.php?id=<?= $product['id'] ?>"
-                           class="btn-delete"
-                           onclick="return confirm('A je i sigurt?')">Delete</a>
-                        </td>
+                        <th>ID</th>
+                        <th>Emri</th>
+                        <th>Çmimi</th>
+                        <th>Zbritja</th>
+                        <th>Stoku</th>
+                        <th>Aksione</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </section>
-
+                </thead>
+            <tbody>
+                    <?php foreach ($products as $product): ?>
+                        <tr>
+                            <td><?= $product['id'] ?></td>
+                            <td><?= htmlspecialchars($product['name']) ?></td>
+                            <td><?= $product['price'] ?> €</td>
+                            <td><?= $product['sale'] ?>%</td>
+                            <td><?= $product['stock'] ?></td>
+                            <td class="actions">
+                            <a href="edit-product.php?id=<?= $product['id'] ?>" class="btn-edit">Edit</a>
+                            <a href="delete-product.php?id=<?= $product['id'] ?>"
+                            class="btn-delete"
+                            onclick="return confirm('A je i sigurt?')">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </section>
         <!-- Orders Section -->
         <section id="orders" class="section">
             <h2>Porositë</h2>
-            <table>
+            <table class="dashboard-table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -99,23 +105,30 @@
                         <th>Produkt</th>
                         <th>Sasia</th>
                         <th>Statusi</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
+                    <?php if(!empty($orders)): ?>
+                    <?php foreach($orders as $order): ?>
+                        <tr>
+                            <td><?= $order['id'] ?></td>
+                            <td><?= $order['user_id'] ?></td>
+                            <td><?= $order['total'] ?> €</td>
+                            <td><?= $order['status'] ?></td>
+                            <td><?= date('d/m/Y', strtotime($order['created_at'])) ?></td>
+                            <td>
+                                <a href="edit_order.php?id=<?= $order['id'] ?>" class="btn-edit">Edit</a> 
+                                <a href="delete_order.php?id=<?= $order['id'] ?>" class="btn-delete" onclick="return confirm('A je i sigurt?')">Delete</a>
+                                <button onclick="toggleItems(<?= $order['id'] ?>)" class="btn-primary" >Shfaq Produktet</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <tr>
-                        <td>201</td>
-                        <td>Emri M.</td>
-                        <td>Produkti</td>
-                        <td>2</td>
-                        <td>Anuluar</td>
+                        <td colspan="6">Nuk ka porosi.</td>
                     </tr>
-                    <tr>
-                        <td>202</td>
-                        <td>Emri M.</td>
-                        <td>Produkti</td>
-                        <td>1</td>
-                        <td>Në Proces</td>
-                    </tr>
+                <?php endif; ?>
                 </tbody>
             </table>
         </section>
@@ -123,11 +136,12 @@
         <!-- Contact Messages Section -->
         <section id="contact-messages" class="section">
             <h2>Mesazhet nga klientët</h2>
-            <table>
+            <table class="dashboard-table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Emri</th>
+                        <th>Mbiemri</th>
                         <th>Email</th>
                         <th>Mesazhi</th>
                         <th>Nr. Telefonit</th>
@@ -135,25 +149,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Emri M.</td>
-                        <td>test@mail.com</td>
-                        <td>Pyetja?</td>
-                        <td>049 111 222</td>
-                        <td>26/01/2026</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Emri M.</td>
-                        <td>emri@mail.com</td>
-                        <td>Pyetja?</td>
-                        <td>049 111 222</td>
-                        <td>25/01/2026</td>
-                    </tr>
+                    <?php if(!empty($messages)): ?>
+                        <?php foreach($messages as $msg): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($msg['id']) ?></td>
+                                <td><?= htmlspecialchars($msg['first_name']) ?></td>
+                                <td><?= htmlspecialchars($msg['last_name']) ?></td>
+                                <td><?= htmlspecialchars($msg['email']) ?></td>
+                                <td><?= htmlspecialchars($msg['message']) ?></td>
+                                <td><?= htmlspecialchars($msg['phone']) ?></td>
+                                <td><?= date('d/m/Y', strtotime($msg['created_at'])) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="7">Nuk ka mesazhe të reja.</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </section>
     </main>
 </section>
+<script src="script.js" ></script>
 <?php require_once 'footer.php' ?>

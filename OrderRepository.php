@@ -24,7 +24,7 @@ class OrderRepository {
         $stmt->execute([$user_id, $date, $status, $total]);
         return $this->conn->lastInsertId();
     }
-    public function updateOrder($id, $userId, $date, $status, $total) 
+    public function updateOrder($id, $user_Id, $date, $status, $total) 
     {
         $sql = "UPDATE orders SET user_id=?, date=?, status=?, total=? WHERE id=?";
         $statement = $this->conn->prepare($sql);
@@ -72,5 +72,16 @@ class OrderRepository {
         }
 
         return $orderId;
+    }
+    public function getOrderItems($orderId)
+    {
+        $sql = "SELECT products.name, order_items.quantity, order_items.price_at_purchase
+                FROM order_items
+                JOIN products ON order_items.product_id = products.id
+                WHERE order_items.order_id=?";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$orderId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
