@@ -31,5 +31,24 @@ class ContactMessageRepository {
             ':created_at' => $msg->getCreatedAt()
         ]);
     }
+    public function getAllMessages() 
+    {
+        $sql = "SELECT * FROM {$this->table} ORDER BY created_at DESC";
+        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getMessageById($id) 
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE id=?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteMessage($id) 
+    {
+        $stmt = $this->conn->prepare("DELETE FROM {$this->table} WHERE id=?");
+        $stmt->execute([$id]);
+    }
 }
 ?>

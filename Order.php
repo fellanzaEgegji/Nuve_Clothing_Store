@@ -2,37 +2,32 @@
 require_once 'OrderItem.php';
 class Order {
     private $id;
-    private $user;
+    private $user_id;
     private $date;
     private $status;
     private $items = [];
 
-    public function __construct($id, $user, $date, $status) {
+    public function __construct($id, $user_id, $date, $status) {
         $this->id = $id;
-        $this->user = $user;
+        $this->user_id = $user_id;
         $this->date = $date;
         $this->status = $status;
     }
 
-    public function getId() {
+    public function getId() 
+    {
         return $this->id;
     }
-    public function setId($id) {
-        $this->id = $id;
-    }
-    public function getDate() {
+    public function getDate() 
+    {
         return $this->date;
     }
-    public function setDate($date) {
-        $this->date = $date;
-    }
-    public function getStatus() {
+    public function getStatus() 
+    {
         return $this->status;
     }
-    public function setStatus($status) {
-        $this->status = $status;
-    }
-    public function getStatusClass() {
+    public function getStatusClass() 
+    {
         return match ($this->status) {
             'Përfunduar' => 'completed',
             'Në Proces'  => 'inprocess',
@@ -40,19 +35,23 @@ class Order {
             default      => ''
         };
     }
-    public function getUserId() {
-    return $this->user;
+    public function getUserId() 
+    {
+    return $this->user_id;
     }
 
-    public function addItem($item) {
+    public function addItem($item) 
+    {
         $this->items[] = $item;
     }
 
-    public function getItems() {
+    public function getItems() 
+    {
         return $this->items;
     }
 
-    public function getTotal() {
+    public function getTotal() 
+    {
         $total = 0;
         foreach ($this->items as $item) {
             $total += $item->getSubtotal();

@@ -16,32 +16,36 @@
         header("Location: login.php");
         exit;
     }
-    $user = new User(1, "Erblina", "Ramadani", "test@email.com", "@Test123");
+    $user = $_SESSION['user'];
     
     if (!isset($_SESSION['orders'])) {
-        $product1 = new Product(1, 'Produkti 1', 100);
-        $product2 = new Product(2, 'Produkti 2', 50);
-        $product3 = new Product(3, 'Produkti 3', 25);
-        $product4 = new Product(4, 'Produkti 4', 60);
+        $product1 = new Product('Produkti 1', 'Pershkrimi', 18, 0, 100, 'user');
+        $product2 = new Product('Produkti 2', 'Pershkrimi', 37, 15, 200, 'user');
+        $product3 = new Product('Produkti 3', 'Pershkrimi', 52, 30, 90, 'user');
+        $product4 = new Product('Produkti 4', 'Pershkrimi', 18, 0, 100, 'user');
 
         $item1 = new OrderItem($product1, 2, 20);
         $item2 = new OrderItem($product2, 1);
         $item3 = new OrderItem($product3, 3, 10);
         $item4 = new OrderItem($product4, 1);
 
-        $order1 = new Order(101, '2024-01-15', 'Përfunduar');
+        $order1 = new Order('2024-01-15', 'Përfunduar');
+        $order1->setUserId($_SESSION['user_id']);
         $order1->addItem($item1);
         $order1->addItem($item2);
 
         $order2 = new Order(102, '2024-01-18', 'Në Proces');
+        $order2->setUserId($_SESSION['user_id']);
         $order2->addItem($item3);
         $order2->addItem($item4);
 
         $order3 = new Order(103, '2024-01-20', 'Anuluar');
+        $order3->setUserId($_SESSION['user_id']);
         $order3->addItem($item2);
         $order3->addItem($item3);
 
         $order4 = new Order(104, '2024-07-28', 'Në Proces');
+        $order4->setUserId($_SESSION['user_id']);
         $order4->addItem($item3);
         $order4->addItem($item4);
 

@@ -3,56 +3,43 @@ require_once 'Product.php';
 class OrderItem {
     private $product;
     private $qty;
-    private $sale;
     private $priceAtPurchase;
 
-    public function __construct($product, $qty, $sale = 0) {
+    public function __construct($product, $qty) {
         $this->product = $product;
         $this->qty = $qty;
-        $this->sale = $sale;
         $this->priceAtPurchase = $this->calculatePriceAtPurchase();
     }
 
     private function calculatePriceAtPurchase() {
         $price = $this->product->getPrice();
 
-        if ($this->sale > 0) {
-            $price -= ($price * $this->sale / 100);
+        if ($this->product->getSale() > 0) {
+            $price -= ($price * $this->product->getSale() / 100);
         }
 
         return round($price, 2);
     }
 
-    public function getProduct() {
+    public function getProduct() 
+    {
         return $this->product;
     }
-    public function setProduct($product) {
-        $this->product = $product;
-    }
-    public function getQty() {
+    public function getQty() 
+    {
         return $this->qty;
     }
-    public function setQty($qty) {
-        $this->qty = $qty;
-    }
-
-    public function getSale() {
+    public function getSale() 
+    {
         return $this->sale;
     }
-    public function setSale($sale) {
-        $this->sale = $sale;
-    }
-    public function getPrice() {
+    public function getPrice() 
+    {
         return $this->priceAtPurchase;
     }
-    public function setPrice($price) {
-        $this->price = $price;
-    }
-    public function getSubtotal() {
+    public function getSubtotal() 
+    {
         return round($this->priceAtPurchase * $this->qty, 2);
-    }
-    public function setSubtotal($subtotal) {
-        $this->subtotal = $subtotal;
     }
 }
 ?>
