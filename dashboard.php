@@ -12,6 +12,10 @@
     
     $productRepo = new ProductRepository($conn);
     $products = $productRepo->getAllProducts();
+    $editProduct = null;
+    if (isset($_GET['edit'])) {
+        $editProduct = $productRepo->getProductById($_GET['edit']);
+  }
 
     $orderRepo = new OrderRepository($conn);
     $orders = $orderRepo->getAllOrders();
@@ -57,8 +61,34 @@
                 </div>
             </div>
         </section>
+        
+
         <!--Products Section-->
         <section id="products" class="section">
+        <h1>Menaxhimi i Produkteve</h1>
+        <h2><?= isset($_GET['edit']) ? "Edito Produkt" : "Shto Produkt" ?></h2>
+
+        <form action="product-action.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="<?= isset($_GET['edit']) ? "update" : "create" ?>">
+        <?php if(isset($editProduct)): ?>
+            <input type="hidden" name="id" value="<?= $editProduct['id'] ?>">
+            <input type="hidden" name="existing_image" value="<?= $editProduct['image_url'] ?>">
+        <?php endif; ?>
+
+            <input type="text" name="name" placeholder="Emri" value="<?= $editProduct['name'] ?? '' ?>" required>
+            <textarea name="description" placeholder="Përshkrimi"><?= $editProduct['description'] ?? '' ?></textarea>
+            <input type="number" step="0.01" name="price" placeholder="Çmimi" value="<?= $editProduct['price'] ?? '' ?>" required>
+            <input type="number" name="sale" placeholder="Zbritja" value="<?= $editProduct['sale'] ?? 0 ?>">
+            <input type="number" name="stock" placeholder="Stoku" value="<?= $editProduct['stock'] ?? '' ?>" required>
+            <input type="file" name="image">
+
+        <?php if(isset($editProduct) && $editProduct['image_url']): ?>
+            <img src="<?= $editProduct['image_url'] ?>" width="50" alt="">
+        <?php endif; ?>
+
+            <button type="submit"><?= isset($editProduct) ? "Përditëso" : "Ruaj" ?></button>
+        </form>
+
             <div class="section-header">
                 <h2>Produktet</h2>
                 <a href="add-product.php" class="btn-primary">+ Shto Produkt</a>
@@ -84,10 +114,15 @@
                             <td><?= $product['sale'] ?>%</td>
                             <td><?= $product['stock'] ?></td>
                             <td class="actions">
-                            <a href="edit-product.php?id=<?= $product['id'] ?>" class="btn-edit">Edit</a>
-                            <a href="delete-product.php?id=<?= $product['id'] ?>"
-                            class="btn-delete"
-                            onclick="return confirm('A je i sigurt?')">Delete</a>
+                            <!-- Edit -->
+                            <a href="dashboard.php?edit=<?= $product['id'] ?>" class="btn-edit">Edit</a>
+
+                            <!-- Delete -->
+                            <form action="product-action.php" method="POST" style="display:inline;">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                                <button class="btn-delete" onclick="return confirm('A je i sigurt?')">Delete</button>
+                            </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
