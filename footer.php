@@ -23,7 +23,7 @@
                     <ul>
                         <li><a href="about-us.php">Rreth Nesh</a></li>
                         <li><a href="contact-us.php">Kontakti</a></li>
-                        <li><a href="">Shporta e Blerjeve</a></li>
+                        <li><a href="cart.php">Shporta e Blerjeve</a></li>
                         <li><a href="testimonial.php">Vlerësimet e Klientëve</a></li>
                     </ul>
                     

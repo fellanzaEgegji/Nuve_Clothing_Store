@@ -4,9 +4,16 @@
     require_once 'Auth.php';
     require_once 'ContactMessage.php';
     require_once 'ContactMessageRepository.php';
+    require_once 'PageRepository.php';
     Session::start();
     $page_css = "about&contact.css";
     require_once 'header.php';
+
+    $db = new Database();
+    $conn = $db->getConnection();
+    $pageRepo = new PageRepository($conn);
+
+    $page = $pageRepo->getPageByTitle("Na Kontaktoni");
     $error = "";
     $success = "";
 
@@ -18,7 +25,6 @@
     $email = '';
     $userID = null;
 
-    // Kontrollo nëse user është kyçur dhe session ka ID
     if (Session::isLoggedIn() && isset($_SESSION['user_id'])) {
         $userID = $_SESSION['user_id'];    
         $user = unserialize($_SESSION['user']);
@@ -55,10 +61,10 @@
 <!-- Struktura main -->
     <section class="main">
         <div class="container">
-            <img src="library/contact-us.jpg" alt="">
+            <img src="<?= htmlspecialchars($page['image']) ?>" alt="contact-us-image">
             <div class="text">
-                <h1>Kontakti</h1>
-                <p>Për çdo pyetje rreth porosive, madhësive, dërgesave apo bashkëpunimeve, ekipi ynë është gjithmonë i gatshëm t’ju ndihmojë. Na shkruani përmes formularit të kontaktit ose në rrjetet tona sociale dhe ne do të kthejmë përgjigje sa më shpejt që të jetë e mundur. Vlerësojmë çdo mesazh dhe jemi këtu për t’ju ofruar përvojën më të mirë të blerjes në butikun tonë online.</p>
+                <h1><?= htmlspecialchars($page['title']) ?></h1>
+                <p><?= htmlspecialchars($page['content']) ?></p>
             </div>
         </div>
     </section>

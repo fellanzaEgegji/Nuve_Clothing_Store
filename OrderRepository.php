@@ -84,4 +84,45 @@ class OrderRepository {
         $stmt->execute([$orderId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getOrdersByUserId($user_id) {
+        $sql = "SELECT * FROM orders WHERE user_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$user_id]);
+        $ordersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $orders = [];
+        foreach ($ordersData as $data) {
+            $order = new Order($data['id'], $data['user_id'], $data['date'], $data['status'], $data['total']);
+            
+            $stmtItems = $this->conn->prepare("SELECT * FROM order_items WHERE order_id = ?");
+            $stmtItems->execute([$data['id']]);
+            $itemsData = $stmtItems->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($itemsData as $itemData) {
+                $productStmt = $this->conn->prepare("SELECT * FROM products WHERE id=?");
+                $productStmt->execute([$itemData['product_id']]);
+                $productData = $productStmt->fetch(PDO::FETCH_ASSOC);
+
+                $product = new Product(
+                    $productData['id'],
+                    $productData['name'],
+                    $productData['description'],
+                    $productData['price'],
+                    $productData['sale'],
+                    $productData['stock'],
+                    $productData['created_by'],
+                    $productData['created_at'],
+                    $productData['updated_at'],
+                    $productData['image_url'] 
+                );
+
+                $orderItem = new OrderItem($product, $itemData['quantity'], $itemData['price_at_purchase']);
+                $order->addItem($orderItem);
+            }
+
+            $orders[] = $order;
+        }
+
+        return $orders;
+    }
 }

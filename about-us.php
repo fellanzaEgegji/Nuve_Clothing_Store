@@ -1,16 +1,23 @@
 <?php
     require_once 'session.php';
+    require_once 'Database.php';
+    require_once 'PageRepository.php';
     $page_css = "about&contact.css";
     require_once 'header.php';
-?>
+    $db = new Database();
+    $conn = $db->getConnection();
+    $pageRepo = new PageRepository($conn);
+
+    $page = $pageRepo->getPageByTitle("Rreth Nesh");
+    ?>
 
 <!-- Struktura main -->
     <section class="main">
         <div class="container">
-            <img src="library/about-us.avif" alt="">
+            <img src="<?= htmlspecialchars($page['image']) ?>" alt="about-us-image">
             <div class="text">
-                <h1>Rreth Nesh</h1>
-                <p>Butiku ynë online është një markë e dedikuar modës moderne, e specializuar në ofrimin e veshjeve cilësore për gra dhe burra që kërkojnë stil, komoditet dhe çmim të arsyeshëm. Ne funksionojmë si një platformë e plotë blerjesh, ku çdo artikull përzgjidhet me kujdes për të reflektuar trendët aktualë dhe nevojat e përditshme të klientëve tanë. Koleksionet tona përfshijnë nga veshjet casual të përditshme, te kombinimet elegante për evente, gjithmonë me synim që çdo klient të gjejë diçka që i përshtatet personalitetit dhe stilit të tij.</p>
+                <h1><?= htmlspecialchars($page['title']) ?></h1>
+                <p><?= htmlspecialchars($page['content']) ?></p>
             </div>
         </div>
     </section>
