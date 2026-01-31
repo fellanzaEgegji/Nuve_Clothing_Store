@@ -90,6 +90,28 @@ class ProductRepository {
         }
         return $products;
     }
+    public function getProductsOnSale() {
+    $stmt = $this->conn->prepare("SELECT * FROM products WHERE sale > 0");
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $products = [];
+    foreach ($rows as $row) {
+        $products[] = new Product(
+            $row['id'],
+            $row['name'],
+            $row['description'],
+            $row['price'],
+            $row['sale'],
+            $row['stock'],
+            $row['image_url'],
+            $row['created_by'],
+            $row['category']
+        );
+    }
+
+    return $products;
+}
 
 }
 ?>

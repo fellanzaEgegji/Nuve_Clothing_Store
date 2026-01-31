@@ -251,4 +251,17 @@ function toggleItems(orderId) {
     row.style.display = row.style.display === "none" ? "table-row" : "none";
 }
 
+// Products Slider
+const slider = document.querySelector('.products-slider');
+const nextProduct = document.querySelector('.next');
+const prevProduct = document.querySelector('.prev');
 
+if (slider) {
+    nextProduct.addEventListener('click', () => {
+        slider.scrollLeft += 300;
+    });
+
+    prevProduct.addEventListener('click', () => {
+        slider.scrollLeft -= 300;
+    });
+}

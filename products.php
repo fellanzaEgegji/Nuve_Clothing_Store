@@ -19,26 +19,26 @@
     <?php require_once 'header.php'; ?>
 
     <section class="products-container">
-        <h1>Produktet</h1>
         <div class="products-grid">
             <?php if (empty($products)): ?>
                 <p>Nuk u gjet asnjë produkt.</p>
             <?php else: ?>
                 <?php foreach ($products as $p): ?>
-                    <div class="product-card">
-                        <a href="product-details.php?id=<?= $p->getId() ?>">
-                        <img src="<?= htmlspecialchars($p->getImageUrl()) ?>" alt="<?= htmlspecialchars($p->getName()) ?>">
-                        <h2><?= htmlspecialchars($p->getName()) ?></h2>
-                        <p><?= htmlspecialchars($p->getDescription()) ?></p>
-                        <div class="price">
-                            <?php if ($p->getSale() > 0): ?>
-                                <div class="sale-price">$<?= number_format($p->getSale(), 2) ?></div>
-                                <div class="original-price">$<?= number_format($p->getPrice(), 2) ?></div>
-                            <?php else: ?>
-                                <div class="regular-price">$<?= number_format($p->getPrice(), 2) ?></div>
-                            <?php endif; ?>
+                    <a href="product-details.php?id=<?= $p->getId() ?>"> 
+                        <div class="product-card">
+                            <img src="<?= htmlspecialchars($p->getImageUrl()) ?>" alt="<?= htmlspecialchars($p->getName()) ?>">
+                            <h2><?= htmlspecialchars($p->getName()) ?></h2>
+                            <p><?= htmlspecialchars($p->getDescription()) ?></p>
+                            <div class="price">
+                                <?php if ($p->getSale() > 0): ?>
+                                    <div class="sale-price">$<?= number_format($p->getSale(), 2) ?></div>
+                                    <div class="original-price">$<?= number_format($p->getPrice(), 2) ?></div>
+                                <?php else: ?>
+                                    <div class="regular-price">$<?= number_format($p->getPrice(), 2) ?></div>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
