@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2026 at 04:34 PM
+-- Generation Time: Jan 31, 2026 at 08:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -44,7 +44,8 @@ CREATE TABLE `contact_messages` (
 
 INSERT INTO `contact_messages` (`id`, `user_id`, `first_name`, `last_name`, `email`, `phone`, `message`, `created_at`) VALUES
 (1, 1, 'test', 'testt', 'test@testmail.com', '049123123', 'test mesazh', '2026-01-30 16:38:19'),
-(2, 1, 'test', 'testt', 'test@testmail.com', '87654321432', 'edewdweddewd', '2026-01-30 19:32:48');
+(2, 1, 'test', 'testt', 'test@testmail.com', '87654321432', 'edewdweddewd', '2026-01-30 19:32:48'),
+(3, 1, 'test', 'testt', 'test@testmail.com', '049123456', 'Përshëndetje,\r\nDoja të pyes nëse produkti që kam parë në faqen tuaj është ende në stok në madhësinë M? Gjithashtu, a mund të më tregoni sa zgjat dërgesa?\r\nFaleminderit paraprakisht.', '2026-01-31 16:38:53');
 
 -- --------------------------------------------------------
 
@@ -67,10 +68,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `date`, `status`, `total`, `created_at`, `updated_at`) VALUES
-(2, 1, '2026-01-30 17:38:53', 'Në Proces', 38.00, '2026-01-30 17:38:53', '2026-01-30 17:38:53'),
-(3, 2, '2026-01-30 18:19:53', 'Në Proces', 76.00, '2026-01-30 18:19:53', '2026-01-30 18:19:53'),
+(3, 2, '2026-01-30 18:19:53', 'Anuluar', 76.00, '2026-01-30 18:19:53', '2026-01-31 20:26:58'),
 (4, 2, '2026-01-30 18:24:29', 'Në Proces', 76.00, '2026-01-30 18:24:29', '2026-01-30 18:24:29'),
-(5, 2, '2026-01-30 18:25:32', 'Në Proces', 95.00, '2026-01-30 18:25:32', '2026-01-30 18:25:32'),
+(5, 2, '2026-01-30 18:25:32', 'Përfunduar', 95.00, '2026-01-30 18:25:32', '2026-01-31 20:26:55'),
 (6, 2, '2026-01-30 18:29:25', 'Në Proces', 114.00, '2026-01-30 18:29:25', '2026-01-30 18:29:25'),
 (7, 2, '2026-01-30 18:34:20', 'Në Proces', 114.00, '2026-01-30 18:34:20', '2026-01-30 18:34:20'),
 (8, 2, '2026-01-30 18:36:34', 'Në Proces', 114.00, '2026-01-30 18:36:34', '2026-01-30 18:36:34'),
@@ -86,7 +86,8 @@ INSERT INTO `orders` (`id`, `user_id`, `date`, `status`, `total`, `created_at`, 
 (20, 1, '2026-01-30 19:27:05', 'Në Proces', 38.00, '2026-01-30 19:27:05', '2026-01-30 19:27:05'),
 (21, 1, '2026-01-30 19:30:39', 'Anuluar', 19.00, '2026-01-30 19:30:39', '2026-01-31 12:15:31'),
 (22, 1, '2026-01-31 12:07:23', 'Në Proces', 114.00, '2026-01-31 12:07:23', '2026-01-31 12:07:23'),
-(23, 1, '2026-01-31 15:38:58', 'Në Proces', 19.00, '2026-01-31 15:38:58', '2026-01-31 15:38:58');
+(23, 1, '2026-01-31 15:38:58', 'Në Proces', 19.00, '2026-01-31 15:38:58', '2026-01-31 15:38:58'),
+(24, 1, '2026-01-31 20:27:50', 'Në Proces', 25.00, '2026-01-31 20:27:50', '2026-01-31 20:27:50');
 
 -- --------------------------------------------------------
 
@@ -107,19 +108,7 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price_at_purchase`) VALUES
-(6, 9, 1, 6, 19.00),
-(7, 10, 1, 1, 19.00),
-(8, 11, 1, 1, 19.00),
-(9, 12, 1, 2, 19.00),
-(10, 13, 1, 3, 19.00),
-(11, 14, 1, 1, 19.00),
-(12, 15, 1, 1, 19.00),
-(13, 16, 1, 2, 19.00),
-(14, 17, 1, 1, 19.00),
-(15, 20, 1, 2, 19.00),
-(16, 21, 1, 1, 19.00),
-(17, 22, 1, 6, 19.00),
-(18, 23, 1, 1, 19.00);
+(19, 24, 14, 1, 25.00);
 
 -- --------------------------------------------------------
 
@@ -167,12 +156,14 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `sale`, `stock`, `image_url`, `created_by`, `created_at`, `updated_at`, `category`) VALUES
-(1, 'Xhaketë me rrip', 'Produkt test', 19.00, 5.00, 100, 'library/product.jpg', 1, '2026-01-30 17:36:23', '2026-01-30 21:22:17', 'Uncategorized'),
-(4, 'Fustan blazer', 'Fustan Blazer 2 në 1', 40.00, 0.00, 66, 'uploads/1769857608_Fustan.webp', 1, '2026-01-31 11:06:48', '2026-01-31 11:06:48', 'Uncategorized'),
 (5, 'Xhaketë me rrip', 'Produkt test', 19.00, 5.00, 100, 'library/product.jpg', 1, '2026-01-31 14:01:09', '2026-01-31 14:01:09', 'Femra'),
-(7, 'Xhinse Bazike', 'Xhinse Bazike', 30.00, 0.00, 70, 'uploads/1769872549_jeans.webp', 1, '2026-01-31 15:15:49', '2026-01-31 15:15:49', '1'),
-(8, 'Xhinse Bazike', 'Xhinse Bazike', 30.00, 0.00, 0, 'uploads/1769872662_jeans.webp', 1, '2026-01-31 15:17:42', '2026-01-31 15:17:42', '1'),
-(9, 'Xhinse Bazike', 'Xhinse Bazike', 30.00, 0.00, 0, 'uploads/1769872938_jeans.webp', 1, '2026-01-31 15:22:18', '2026-01-31 15:22:18', 'Femra');
+(11, 'Maicë për meshkuj', 'Maicë për meshkuj', 30.00, 50.00, 88, 'uploads/1769877969_3.webp', 1, '2026-01-31 16:46:09', '2026-01-31 16:46:09', 'Meshkuj'),
+(12, 'Duks Oversized', 'Duks për meshkuj', 35.00, 30.00, 100, 'uploads/1769878196_4.webp', 1, '2026-01-31 16:49:56', '2026-01-31 16:49:56', 'Meshkuj'),
+(13, 'Bluzë pink', 'Bluzë për fëmijë', 20.00, 20.00, 55, 'uploads/1769878284_5.webp', 1, '2026-01-31 16:51:24', '2026-01-31 16:51:24', 'Fëmijë'),
+(14, 'Bluzë e zezë', 'Bluzë për femra', 25.00, 25.00, 40, 'uploads/1769879047_1.webp', 1, '2026-01-31 17:04:07', '2026-01-31 17:04:07', 'Femra'),
+(15, 'Bluzë me vija', 'Bluzë për femra', 26.00, 25.00, 68, 'uploads/1769879573_2.webp', 1, '2026-01-31 17:12:53', '2026-01-31 17:12:53', 'Femra'),
+(16, 'Xhinse Bazike', 'Xhinse Bazike', 39.00, 35.00, 77, 'uploads/1769880528_jeans.webp', 1, '2026-01-31 17:28:48', '2026-01-31 17:28:48', 'Femra'),
+(17, 'Fustan blazer', 'Fustan blazer 2 në 1', 40.00, 15.00, 43, 'uploads/1769880572_Fustan.webp', 1, '2026-01-31 17:29:32', '2026-01-31 17:29:32', 'Femra');
 
 -- --------------------------------------------------------
 
@@ -192,7 +183,8 @@ CREATE TABLE `testimonials` (
 --
 
 INSERT INTO `testimonials` (`id`, `name`, `text`, `created_at`) VALUES
-(1, 'fellanza.egegji', 'Cilësi e lartë dhe shërbim shumë profesional. Kam porositur disa herë dhe gjithmonë kam marrë produkte perfekte, të sakta në ngjyra dhe madhësi...', '2026-01-30 17:27:33');
+(1, 'fellanza.egegji', 'Cilësi e lartë dhe shërbim shumë profesional. Kam porositur disa herë dhe gjithmonë kam marrë produkte perfekte, të sakta në ngjyra dhe madhësi...', '2026-01-30 17:27:33'),
+(2, 'Erblina Ramadani', 'Jam shumë e kënaqur me blerjen time! Produkti ishte saktësisht si në foto dhe cilësia shumë e mirë. Porosia arriti shpejt dhe shërbimi ndaj klientit ishte i shkëlqyer. Patjetër do të blej përsëri.', '2026-01-31 16:36:53');
 
 -- --------------------------------------------------------
 
@@ -280,19 +272,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `contact_messages`
 --
 ALTER TABLE `contact_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -304,13 +296,13 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `testimonials`
 --
 ALTER TABLE `testimonials`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
