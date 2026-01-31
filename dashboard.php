@@ -143,10 +143,11 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Klienti</th>
-                        <th>Produkt</th>
-                        <th>Sasia</th>
+                        <th>Klienti (ID)</th>
+                        <th>Produktet</th>
+                        <th>Totali</th>
                         <th>Statusi</th>
+                        <th>Data</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -155,14 +156,29 @@
                     <?php foreach($orders as $order): ?>
                         <tr>
                             <td><?= $order['id'] ?></td>
-                            <td><?= $order['user_id'] ?></td>
-                            <td><?= $order['total'] ?> €</td>
-                            <td><?= $order['status'] ?></td>
+                            <td><?= htmlspecialchars($order['user_id']) ?></td>
+                            <td></td>
+                            <td><?= number_format($order['total'], 2) ?> €</td>
+                            <td><?= htmlspecialchars($order['status']) ?></td>
                             <td><?= date('d/m/Y', strtotime($order['created_at'])) ?></td>
                             <td>
-                                <a href="edit_order.php?id=<?= $order['id'] ?>" class="btn-edit">Edit</a> 
-                                <a href="delete_order.php?id=<?= $order['id'] ?>" class="btn-delete" onclick="return confirm('A je i sigurt?')">Delete</a>
-                                <button onclick="toggleItems(<?= $order['id'] ?>)" class="btn-primary" >Shfaq Produktet</button>
+                                <div class="actions">
+                                    <form method="POST" action="order-action.php">
+                                        <input type="hidden" name="action" value="update_status">
+                                        <input type="hidden" name="id" value="<?= $order['id'] ?>">
+                                        <select name="status" onchange="this.form.submit()">
+                                            <option value="Ne Proces" <?= $order['status'] === 'Ne Proces' ? 'selected' : '' ?>>Ne Proces</option>
+                                            <option value="Perfunduar" <?= $order['status'] === 'Perfunduar' ? 'selected' : '' ?>>Perfunduar</option>
+                                            <option value="Anuluar" <?= $order['status'] === 'Anuluar' ? 'selected' : '' ?>>Anuluar</option>
+                                        </select>
+                                    </form>
+
+                                    <form method="POST" action="order-action.php" onsubmit="return confirm('A je i sigurt që do ta fshish porosinë?')">
+                                        <input type="hidden" name="action" value="delete">
+                                        <input type="hidden" name="id" value="<?= $order['id'] ?>">
+                                        <button type="submit" class="btn-delete">Delete</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>

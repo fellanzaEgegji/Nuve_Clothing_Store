@@ -245,11 +245,6 @@ function togglePassword() {
     });
   }
 }
-// Shfaqja e OrderItems ne dashboard 
-function toggleItems(orderId) {
-    let row = document.getElementById("items-" + orderId);
-    row.style.display = row.style.display === "none" ? "table-row" : "none";
-}
 
 // Products Slider
 const slider = document.querySelector('.products-slider');

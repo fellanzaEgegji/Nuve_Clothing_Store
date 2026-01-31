@@ -24,6 +24,12 @@ class OrderRepository {
         $stmt->execute([$user_id, $date, $status, $total]);
         return $this->conn->lastInsertId();
     }
+    public function updateOrderStatus($orderId, $status) {
+         $stmt = $this->conn->prepare("UPDATE orders SET status = :status WHERE id = :id");
+        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':id', $orderId);
+        return $stmt->execute();
+    }
     public function updateOrder($id, $user_Id, $date, $status, $total) 
     {
         $sql = "UPDATE orders SET user_id=?, date=?, status=?, total=? WHERE id=?";
