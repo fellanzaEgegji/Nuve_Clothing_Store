@@ -6,26 +6,16 @@ Session::start();
 $cart = new ShoppingCart();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])){
-    $id       = $_POST['id'];
-    $name     = $_POST['name'];
-    $price    = $_POST['price'];
-    $old_price= $_POST['old_price'];
-    $image    = $_POST['image'];
-    $category = $_POST['category'];
-    $quantity = (int)$_POST['quantity'];
+    $cart->addItem([
+    'id'       => $_POST['id'],
+    'name'     => $_POST['name'],
+    'price'    => $_POST['price'],
+    'old_price'=> $_POST['old_price'],
+    'image'   => $_POST['image'],
+    'category' => $_POST['category'],
+    'quantity' => (int)$_POST['quantity']
+    ]);
 
-    if (isset($_SESSION['cart'][$id])) {
-        $_SESSION['cart'][$id]['quantity'] += $quantity;
-    } else {
-        $_SESSION['cart'][$id] = [
-            'name' => $name,
-            'price' => $price,
-            'old_price' => $old_price,
-            'image' => $image,
-            'category' => $category,
-            'quantity' => $quantity
-        ];
-    }
 }  
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
@@ -46,15 +36,12 @@ $items      = $cart->getItems();
 <!--Struktura e shportës-->
 <div class="cart-container">
     <?php
-$totalQty = 0;
-$grandTotal = 0;
 
-if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-    foreach ($_SESSION['cart'] as $item) {
+    
         $totalQty   = $cart->getTotalQuantity();
         $grandTotal = $cart->getGrandTotal();
-    }
-}
+    
+
 ?>
 
     <h1>Shporta juaj(<?= $totalQty?>)</h1>

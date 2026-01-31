@@ -5,10 +5,10 @@ class OrderItem {
     private $qty;
     private $priceAtPurchase;
 
-    public function __construct($product, $qty) {
+    public function __construct($product, $qty, $price) {
         $this->product = $product;
         $this->qty = $qty;
-        $this->priceAtPurchase = $this->calculatePriceAtPurchase();
+        $this->priceAtPurchase = round($price,2);
     }
 
     private function calculatePriceAtPurchase() {
@@ -29,10 +29,10 @@ class OrderItem {
     {
         return $this->qty;
     }
-    public function getSale() 
+    /*public function getSale() 
     {
         return $this->sale;
-    }
+    }*/
     public function getPrice() 
     {
         return $this->priceAtPurchase;

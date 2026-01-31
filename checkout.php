@@ -4,6 +4,7 @@ require_once 'ShoppingCart.php';
 require_once 'Order.php';
 require_once 'OrderItem.php';
 require_once 'OrderRepository.php';
+require_once 'ProductRepository.php';
 require_once 'Database.php';
 
 Session::start();
@@ -27,38 +28,27 @@ $order = new Order(
     'Në Proces'
 );
 
+$db = new Database();
+$conn = $db->getConnection();
+$repo = new OrderRepository($conn);
+$productRepo = new ProductRepository($conn);
+
 
 foreach ($items as $productId => $item) {
-
+    if (!isset($item['quantity'], $item['price'])) {
+        continue;
+    }
+    $product = $productRepo->getProductById($productId);
+    if (!$product) continue;
     if (!is_array($item)) continue;
-    $name        = $item['name'];
-    $price       = $item['price'];
-    $quantity    = $item['quantity'];
-    $description = $item['description'] ?? '';
-    $sale        = $item['sale'] ?? 0;
-    $stock       = $item['stock'] ?? 0;
-    $imageUrl    = $item['image'] ?? '';
-    $createdBy   = $item['createdBy'] ?? 'Admin';
-    $category    = $item['category'] ?? 'N/A';
-
-    if (!$productId || !is_numeric($productId)) {
-    continue;
-}
-
-    $product = new Product(
-        $productId,
-        $name,
-        $description,
-        $price,
-        $sale,
-        $stock,
-        $imageUrl,
-        $createdBy,
-        $category
-        );
-
-    $orderItem = new OrderItem($product, $item['quantity']);
+    
+    $orderItem = new OrderItem(
+        $product,
+        (int)$item['quantity'],
+        (float)$item['price'] 
+    );
     $order->addItem($orderItem);
+    
 }
 
 if (!isset($_SESSION['user_id'])) {
@@ -73,18 +63,13 @@ if (!isset($_SESSION['user_id'])) {
 
 $userId = $_SESSION['user_id'];
 
-
-
-$db = new Database();
-$conn = $db->getConnection();
-$repo = new OrderRepository($conn);
-
 $success = false;
 $errorMessage = '';
 
 try {
     $orderId = $repo->save($order);
     $cart->clear(); 
+    $success = true; 
 } catch (PDOException $e) {
     echo "<h2>Gabim gjatë ruajtjes së porosisë:</h2>";
     echo "<pre>" . $e->getMessage() . "</pre>";
@@ -97,7 +82,7 @@ include_once 'header.php';
 ?>
 
 <div class="checkout-result">
-    <?php if (!$success): ?>
+    <?php if ($success): ?>
         <h1>✅ Porosia u krye me sukses!</h1>
         <p>Numri i porosisë: <strong>#<?= $orderId ?></strong></p>
         <p>Ju faleminderit!</p>
