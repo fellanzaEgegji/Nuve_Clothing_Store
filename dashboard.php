@@ -113,7 +113,7 @@
                             <td><?= $product['price'] ?> €</td>
                             <td><?= $product['sale'] ?>%</td>
                             <td><?= $product['stock'] ?></td>
-                            <td class="actions">
+                            <td class="actions">  
                             <!-- Edit -->
                             <a href="dashboard.php?edit=<?= $product['id'] ?>" class="btn-edit">Edit</a>
 

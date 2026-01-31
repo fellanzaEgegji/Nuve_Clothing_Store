@@ -233,6 +233,143 @@ table tbody tr:hover {
     background-color: #dc2626;
 }
 
+#products form {
+    background: var(--card-bg);
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+
+    display: grid;
+    grid-template-columns:
+        1.5fr   
+        1.5fr     
+        1fr     
+        0.8fr   
+        0.8fr   
+        1.2fr  
+        0.8fr;  
+
+    gap: 10px;
+    align-items: center;
+}
+
+#products form input,
+#products form textarea {
+    height: 34px;
+    padding: 6px 8px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+#products form textarea {
+    resize: none;
+}
+
+
+#products form input[type="file"] {
+    font-size: 12px;
+}
+
+#products > form > button {
+    height: 34px;
+    background-color: #1f2937;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+#products form button:hover {
+    background-color: #374151;
+}
+
+#products form img {
+    max-width: 35px;
+    border-radius: 4px;
+}
+
+@media (max-width: 900px) {
+    #products form {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    #products form {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.dashboard-table .actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.dashboard-table .btn-edit {
+    background-color: #3b82f6; 
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    height: auto;              
+    width: auto;
+}
+.dashboard-table .btn-delete {
+    background-color: #ef4444;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;   
+    cursor: pointer;  
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none !important;
+}
+
+#products .dashboard-table .actions form .btn-delete:focus,
+#products .dashboard-table .actions form .btn-delete:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.dashboard-table .btn-edit:hover {
+    background-color: #2563eb;
+}
+
+.dashboard-table .btn-delete:hover {
+    background-color: #dc2626;
+}
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.actions form {
+    margin: 0;
+}
+.dashboard-table .btn-delete:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.dashboard-table .actions form {
+    display: inline-block;
+    margin: 0;
+}
+
+
 /* Stilizimi i footer-it */
 .footer {
     margin: 0px;
@@ -339,3 +476,27 @@ table tbody tr:hover {
     gap: 10px;
 }
 }
+button {
+    border: none;
+    outline: none;
+    background: none;
+}
+
+button:focus,
+button:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.dashboard-table tr:hover td {
+    border-color: transparent;
+}
+
+.btn-delete,
+.btn-delete:focus,
+.btn-delete:active,
+.btn-delete:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
