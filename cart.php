@@ -13,7 +13,7 @@ if(!isset($_SESSION['cart'])){
         'old_price' => 65,
         'size' => 'S',
         'image' => 'library/product.jpg',
-        'quantity' =>1    
+        'quantity' =>1,
         'category' => 'Femra'
         ]
     ];
@@ -71,7 +71,14 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                     </div>
 
                     <p><strong>Madhësia: </strong><?= $item['size']?></p>
-                    <p><strong>Kategoria: </strong><?= $item['category'] ?></p>
+                    <p><strong>Kategoria: </strong>
+                    <?php 
+                        if (isset($item['category'])) {
+                            echo htmlspecialchars($item['category']);
+                        } else {
+                            echo 'N/A';
+                        }
+                    ?></p>
 
 
                     <form method="POST" class="quantity-form">
@@ -99,7 +106,6 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
     <?php endforeach; ?>
     
-</form>
 <?php else: ?>
         <!-- Mesazh kur shporta është bosh -->
         <p>Shporta juaj është bosh.</p>

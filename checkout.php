@@ -34,14 +34,15 @@ foreach ($items as $productId => $item) {
 
     $product = new Product(
         $productId,
-    $item['name'],
-    $item['description'] ?? '',
-    $item['price'],
-    $item['sale'] ?? 0,
-    $item['quantity'],          
-    $item['image'] ?? '',        
-    $item['brand'] ?? 'System'
-    );
+        $item['name'],
+        $item['description'] ?? '',
+        $item['price'],
+        $item['sale'] ?? 0,
+        $item['stock'],          
+        $item['imageUrl'] ?? '',        
+        $item['createdBy'],
+        $category
+        );
 
     $orderItem = new OrderItem($product, $item['quantity']);
     $order->addItem($orderItem);

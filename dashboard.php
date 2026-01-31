@@ -71,19 +71,24 @@
         <form action="product-action.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="action" value="<?= isset($_GET['edit']) ? "update" : "create" ?>">
         <?php if(isset($editProduct)): ?>
-            <input type="hidden" name="id" value="<?= $editProduct['id'] ?>">
-            <input type="hidden" name="existing_image" value="<?= $editProduct['image_url'] ?>">
+            <input type="hidden" name="id" value="<?= $editProduct?->getId() ?>">
+            <input type="hidden" name="existing_image" value="<?= $editProduct?->getImageUrl() ?>">
         <?php endif; ?>
 
-            <input type="text" name="name" placeholder="Emri" value="<?= $editProduct['name'] ?? '' ?>" required>
-            <textarea name="description" placeholder="Përshkrimi"><?= $editProduct['description'] ?? '' ?></textarea>
-            <input type="number" step="0.01" name="price" placeholder="Çmimi" value="<?= $editProduct['price'] ?? '' ?>" required>
-            <input type="number" name="sale" placeholder="Zbritja" value="<?= $editProduct['sale'] ?? 0 ?>">
-            <input type="number" name="stock" placeholder="Stoku" value="<?= $editProduct['stock'] ?? '' ?>" required>
+            <input type="text" name="name" placeholder="Emri" value="<?= $editProduct?->getName() ?? '' ?>" required>
+            <textarea name="description" placeholder="Përshkrimi"><?= $editProduct?->getDescription() ?? ''?></textarea>
+            <input type="number" step="0.01" name="price" placeholder="Çmimi" value="<?= $editProduct?->getPrice() ?? ''?>" required>
+            <input type="number" name="sale" placeholder="Zbritja" value="<?= $editProduct?->getSale() ?? 0 ?>">
+            <select name="category" required>
+                <option value="Femra" <?= ($editProduct && $editProduct->getCategory() == 'Femra') ? 'selected' : '' ?>>Femra</option>
+                <option value="Meshkuj" <?= ($editProduct && $editProduct->getCategory() == 'Meshkuj') ? 'selected' : '' ?>>Meshkuj</option>
+                <option value="Fëmijë" <?= ($editProduct && $editProduct->getCategory() == 'Fëmijë') ? 'selected' : '' ?>>Fëmijë</option>
+            </select>
+            <input type="number" name="stock" placeholder="Stoku" value="<?= $editProduct?->getStock() ?? 0 ?>" required>
             <input type="file" name="image">
 
-        <?php if(isset($editProduct) && $editProduct['image_url']): ?>
-            <img src="<?= $editProduct['image_url'] ?>" width="50" alt="">
+        <?php if(isset($editProduct) && $editProduct->getImageUrl()): ?>
+            <img src="<?= $editProduct->getImageUrl() ?>" width="50" alt="">
         <?php endif; ?>
 
             <button type="submit"><?= isset($editProduct) ? "Përditëso" : "Ruaj" ?></button>
@@ -108,19 +113,19 @@
             <tbody>
                     <?php foreach ($products as $product): ?>
                         <tr>
-                            <td><?= $product['id'] ?></td>
-                            <td><?= htmlspecialchars($product['name']) ?></td>
-                            <td><?= $product['price'] ?> €</td>
-                            <td><?= $product['sale'] ?>%</td>
-                            <td><?= $product['stock'] ?></td>
+                            <td><?= $product->getId() ?></td>
+                            <td><?= htmlspecialchars($product->getName()) ?></td>
+                            <td><?= $product->getPrice() ?> €</td>
+                            <td><?= $product->getSale() ?>%</td>
+                            <td><?= $product->getStock() ?></td>
                             <td class="actions">  
                             <!-- Edit -->
-                            <a href="dashboard.php?edit=<?= $product['id'] ?>" class="btn-edit">Edit</a>
+                            <a href="dashboard.php?edit=<?= $product->getId() ?>" class="btn-edit">Edit</a>
 
                             <!-- Delete -->
                             <form action="product-action.php" method="POST" style="display:inline;">
                                 <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                                <input type="hidden" name="id" value="<?= $product->getId() ?>">
                                 <button class="btn-delete" onclick="return confirm('A je i sigurt?')">Delete</button>
                             </form>
                             </td>

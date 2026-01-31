@@ -9,8 +9,23 @@ class ProductRepository {
     }
 
     public function getAllProducts() {
-        $sql = "SELECT * FROM products";
-        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $this->conn->query("SELECT * FROM products");
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $products = [];
+        foreach ($rows as $row) {
+            $products[] = new Product(
+                $row['id'],
+                $row['name'],
+                $row['description'],
+                $row['price'],
+                $row['sale'],
+                $row['stock'],
+                $row['image_url'],
+                $row['created_by'],
+                $row['category']
+            );
+        }
+        return $products;
     }
 
     public function getProductById($id) {
@@ -37,18 +52,18 @@ class ProductRepository {
 
     }
 
-    public function createProduct($name, $description, $price, $sale, $stock, $imageUrl, $createdBy, $category) {
-        $sql = "INSERT INTO products (name, description, price, sale, stock, image_url, created_by)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public function createProduct($name, $description, $price, $sale, $stock, $image_url, $created_by, $category) {
+        $sql = "INSERT INTO products (name, description, price, sale, stock, image_url, created_by, created_at, updated_at, category)
+                VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$name, $description, $price, $sale, $stock, $imageUrl, $createdBy, $category]);
+        $stmt->execute([$name, $description, $price, $sale, $stock, $image_url, $created_by, $category]);
         return $this->conn->lastInsertId();
     }
 
-    public function updateProduct($id, $name, $description, $price, $sale, $stock, $imageUrl, $createdBy, $category) {
-        $sql = "UPDATE products SET name=?, description=?, price=?, sale=?, stock=?, image_url=?, created_by=?, category=? WHERE id=?";
+    public function updateProduct($id, $name, $description, $price, $sale, $stock, $image_url, $created_by, $category) {
+        $sql = "UPDATE products SET name=?, description=?, price=?, sale=?, stock=?, updated_at=NOW(), image_url=?, created_by=?, category=? WHERE id=?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$name, $description, $price, $sale, $stock, $imageUrl, $createdBy, $category, $id]);
+        $stmt->execute([$name, $description, $price, $sale, $stock, $image_url, $created_by, $category, $id]);
     }
 
     public function deleteProduct($id) {
