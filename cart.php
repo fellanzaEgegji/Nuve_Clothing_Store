@@ -12,9 +12,9 @@ if(!isset($_SESSION['cart'])){
         'price' => 19,
         'old_price' => 65,
         'size' => 'S',
-        'color' => 'Bordo',
         'image' => 'library/product.jpg',
         'quantity' =>1    
+        'category' => 'Femra'
         ]
     ];
 }
@@ -71,7 +71,8 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                     </div>
 
                     <p><strong>Madhësia: </strong><?= $item['size']?></p>
-                    <p><strong>Ngjyra: </strong><?= $item['color']?></p>
+                    <p><strong>Kategoria: </strong><?= $item['category'] ?></p>
+
 
                     <form method="POST" class="quantity-form">
                         <input type="hidden" name="id" value="<?= $id ?>">
