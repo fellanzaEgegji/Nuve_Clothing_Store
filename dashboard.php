@@ -96,7 +96,7 @@
 
             <div class="section-header">
                 <h2>Produktet</h2>
-                <a href="add-product.php" class="btn-primary">+ Shto Produkt</a>
+                
             </div>
 
             <table class="dashboard-table">
