@@ -151,48 +151,79 @@ body {
 }
 /*Stilizimi i product-detail*/
 .product-details-container {
-    padding: 70px 20px;
+    padding: 90px 20px;
     display: flex;
     justify-content: center;
+    background: linear-gradient(135deg, #f7f7f7, #ffffff);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .product-details {
     display: flex;
-    gap: 70px;
-    max-width: 4000px;
+    gap: 80px;
+    max-width: 1200px;
+    width: 100%;
     background-color: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
 }
 
 .product-details img {
-    max-width: 350px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    max-width: 370px;
+    width: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+}
+.product-details img:hover {
+    transform: scale(1.05);
 }
 
 .product-info {
-    max-width: 600px;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
+    gap: 15px;
+}
+.product-info h1 {
+    font-size: 2.2rem;
+    margin: 0;
+    color: #111;
+}
+
+.product-info p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.product-info .price {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #e63946;
+    margin: 15px 0;
 }
 
 .add-to-cart {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #161616;
-    color: white;
+    margin-top: 25px;
+    padding: 14px 35px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #111, #333);
+    color: #fff;
     border: none;
     cursor: pointer;
+    align-self: flex-start;
     border-radius: 5px;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: all 0.3s ease;
 }
 .add-to-cart:hover {
     background-color: #333; 
-    transform: translateY(-2px); 
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 /* Responsive 
