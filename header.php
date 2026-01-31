@@ -17,9 +17,10 @@ Session::start();
         <section class="header">
             <a href="index.php" class="logo"><img src="library/logo.png"></a>
             <ul>
-                <li><a href="">Meshkuj</a></li>
-                <li><a href="">Femra</a></li>
-                <li><a href="">Fëmijë</a></li>
+                <li><a href="products.php?category=Meshkuj">Meshkuj</a></li>
+                <li><a href="products.php?category=Femra">Femra</a></li>
+                <li><a href="products.php?category=Fëmijë">Fëmijë</a></li>
+                <li><a href="products.php">Të gjitha</a></li>
             </ul>
             <div class="icons">
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>

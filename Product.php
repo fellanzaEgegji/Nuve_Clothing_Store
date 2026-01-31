@@ -8,8 +8,9 @@ class Product {
     private $stock;
     private $imageUrl;
     private $createdBy;
+    private $category;
 
-    public function __construct($id, $name, $description, $price, $sale, $stock, $imageUrl, $createdBy) {
+    public function __construct($id, $name, $description, $price, $sale, $stock, $imageUrl, $createdBy, $category) {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
@@ -18,6 +19,7 @@ class Product {
         $this->stock = $stock;
         $this->imageUrl = $imageUrl;
         $this->createdBy = $createdBy;
+        $this->category = $category;
     }
 
     public function getId() {
@@ -43,6 +45,9 @@ class Product {
     }
     public function getCreatedBy() {
         return $this->createdBy;
+    }
+    public function getCategory() {
+        return $this->category;
     }
 }
 ?>
