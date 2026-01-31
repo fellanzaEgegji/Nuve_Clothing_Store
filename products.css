@@ -154,6 +154,92 @@ body {
     color: #888;
     font-size: 0.95rem;
 }
+/*Stilizimi i product-detail*/
+.product-details-container {
+    padding: 70px 20px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.product-details {
+    display: flex;
+    gap: 70px;
+    max-width: 4000px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.product-details img {
+    max-width: 350px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.product-info {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-info h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+.product-info p {
+    margin: 10px 0;
+    line-height: 1.6;
+    color: #555;
+}
+
+.price {
+    margin-top: 20px;
+    font-size: 1.5rem;
+}
+
+.sale-price {
+    color: red;
+    font-weight: bold;
+}
+
+.original-price {
+    text-decoration: line-through;
+    margin-left: 10px;
+    color: #555;
+}
+
+.add-to-cart {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #161616;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.add-to-cart:hover {
+    background-color: #333; 
+    transform: translateY(-2px); 
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .product-details {
+        flex-direction: column;
+        align-items: center;
+    }
+    .product-info {
+        max-width: 100%;
+    }
+    .product-details img {
+        max-width: 100%;
+    }
+}
+
 /* Stilizimi i footer-it */
 .footer {
     margin: 0px;

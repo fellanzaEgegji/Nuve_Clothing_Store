@@ -26,6 +26,7 @@
             <?php else: ?>
                 <?php foreach ($products as $p): ?>
                     <div class="product-card">
+                        <a href="product-details.php?id=<?= $p->getId() ?>">
                         <img src="<?= htmlspecialchars($p->getImageUrl()) ?>" alt="<?= htmlspecialchars($p->getName()) ?>">
                         <h2><?= htmlspecialchars($p->getName()) ?></h2>
                         <p><?= htmlspecialchars($p->getDescription()) ?></p>

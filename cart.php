@@ -5,25 +5,34 @@ require_once 'ProductRepository.php';
 Session::start();
 $cart = new ShoppingCart();
 
-if(!isset($_SESSION['cart'])){
-    $_SESSION['cart']=[1 =>[
-        'name' => 'Xhaketë me rrip',
-        'brand' => 'Nuvé',
-        'price' => 19,
-        'old_price' => 65,
-        'size' => 'S',
-        'image' => 'library/product.jpg',
-        'quantity' =>1,
-        'category' => 'Femra'
-        ]
-    ];
-}
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])){
+    $id       = $_POST['id'];
+    $name     = $_POST['name'];
+    $price    = $_POST['price'];
+    $old_price= $_POST['old_price'];
+    $image    = $_POST['image'];
+    $category = $_POST['category'];
+    $quantity = (int)$_POST['quantity'];
 
-if (isset($_POST['update'])) {
+    if (isset($_SESSION['cart'][$id])) {
+        $_SESSION['cart'][$id]['quantity'] += $quantity;
+    } else {
+        $_SESSION['cart'][$id] = [
+            'name' => $name,
+            'price' => $price,
+            'old_price' => $old_price,
+            'image' => $image,
+            'category' => $category,
+            'quantity' => $quantity
+        ];
+    }
+}  
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
     $cart->updateQuantity($_POST['id'], (int)$_POST['quantity']);
 }
 
-if (isset($_POST['remove'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' &&isset($_POST['remove'])) {
     $cart->removeItem($_POST['id']);
 }
 
@@ -57,12 +66,11 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             <?php $productTotal = $item['price'] * $item['quantity']; ?>
 
         <div class="cart-card">
-            <p class="delivery">📦 Dorëzohet nga <strong><?= $item['brand']?></strong></p>
+            <p class="delivery">📦 Dorëzohet nga <strong>Nuvé</strong></p>
 
             <div class="cart-item">
                 <img src="<?= $item['image'] ?>" alt="<?= $item['name'] ?>">
                 <div class="item-info">
-                    <h2><?= $item['brand']?></h2>
                     <p class="product-name"><?= $item['name']?></p>
 
                     <div class="price">
@@ -70,7 +78,6 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
                         <span class="old"><?= $item['old_price']?>€</span>
                     </div>
 
-                    <p><strong>Madhësia: </strong><?= $item['size']?></p>
                     <p><strong>Kategoria: </strong>
                     <?php 
                         if (isset($item['category'])) {

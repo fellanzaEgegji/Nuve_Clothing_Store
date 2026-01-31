@@ -31,16 +31,29 @@ $order = new Order(
 foreach ($items as $productId => $item) {
 
     if (!is_array($item)) continue;
+    $name        = $item['name'];
+    $price       = $item['price'];
+    $quantity    = $item['quantity'];
+    $description = $item['description'] ?? '';
+    $sale        = $item['sale'] ?? 0;
+    $stock       = $item['stock'] ?? 0;
+    $imageUrl    = $item['image'] ?? '';
+    $createdBy   = $item['createdBy'] ?? 'Admin';
+    $category    = $item['category'] ?? 'N/A';
+
+    if (!$productId || !is_numeric($productId)) {
+    continue;
+}
 
     $product = new Product(
         $productId,
-        $item['name'],
-        $item['description'] ?? '',
-        $item['price'],
-        $item['sale'] ?? 0,
-        $item['stock'],          
-        $item['imageUrl'] ?? '',        
-        $item['createdBy'],
+        $name,
+        $description,
+        $price,
+        $sale,
+        $stock,
+        $imageUrl,
+        $createdBy,
         $category
         );
 
