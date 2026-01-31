@@ -107,6 +107,7 @@
                         <th>Çmimi</th>
                         <th>Zbritja</th>
                         <th>Stoku</th>
+                        <th>Shtuar nga (ID)</th>
                         <th>Aksione</th>
                     </tr>
                 </thead>
@@ -118,6 +119,7 @@
                             <td><?= $product->getPrice() ?> €</td>
                             <td><?= $product->getSale() ?>%</td>
                             <td><?= $product->getStock() ?></td>
+                            <td><?= $product->getCreatedBy() ?></td>
                             <td class="actions">  
                             <!-- Edit -->
                             <a href="dashboard.php?edit=<?= $product->getId() ?>" class="btn-edit">Edit</a>
