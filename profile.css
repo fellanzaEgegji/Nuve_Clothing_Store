@@ -58,7 +58,45 @@ body {
   height: 3px;
   background: black;
 }
+.header .search-form {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 25px;
+    padding: 5px 10px;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+}
 
+.header .search-form input{
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 8px 10px;
+    font-size: 0.95rem;
+    width: 180px;
+    transition: width 0.3s ease;
+}
+
+.header .search-form button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.header .search-form button img {
+    width: 20px;
+    height: 20px;
+}
+
+.header .search-form input:focus {
+    width: 250px;
+}
+
+.header .search-form:hover {
+    background-color: #e0e0e0;
+}
 /* Stilizimi i user section */
 .profile {
     display: flex;

@@ -8,8 +8,11 @@
     $conn = $db->getConnection();
     $productRepo = new ProductRepository($conn);
     $category = isset($_GET['category']) ? $_GET['category'] : null;
+    $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : null;
 
-    if ($category) {
+    if ($searchTerm) {
+        $products = $productRepo->searchProducts($searchTerm);
+    } else if ($category) {
         $products = $productRepo->getProductsByCategory($category);
     } else {
         $products = $productRepo->getAllProducts();

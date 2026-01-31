@@ -26,7 +26,12 @@ Session::start();
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                 <a href="dashboard.php"><img src="library/dashboard.png" alt=""></a>
                 <?php endif; ?>
-                <a href=""><img src="library/search.png" alt="search"></a>
+                <form action="products.php" method="GET" class="search-form">
+                    <input type="text" name="search" placeholder="Kërko produkt..." required>
+                    <button type="submit">
+                        <img src="library/search.png" alt="Search" />
+                    </button>
+                </form>
                 <?php if (Session::isLoggedIn()): ?>
                     <a href="profile.php">
                         <img src="library/profile.png" alt="Profile">

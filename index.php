@@ -28,20 +28,22 @@
                     <p>Nuk u gjet asnjë produkt.</p>
                 <?php else: ?>
                     <?php foreach ($products as $p): ?>
-                        <div class="product-card">
-                            <img src="<?= htmlspecialchars($p->getImageUrl()) ?>" alt="<?= htmlspecialchars($p->getName()) ?>">
-                            <h2><?= htmlspecialchars($p->getName()) ?></h2>
-                            <p><?= htmlspecialchars($p->getDescription()) ?></p>
+                        <a href="product-details.php?id=<?= $p->getId() ?>"> 
+                            <div class="product-card">
+                                <img src="<?= htmlspecialchars($p->getImageUrl()) ?>" alt="<?= htmlspecialchars($p->getName()) ?>">
+                                <h2><?= htmlspecialchars($p->getName()) ?></h2>
+                                <p><?= htmlspecialchars($p->getDescription()) ?></p>
 
-                            <div class="price">
-                                <div class="sale-price">
-                                    $<?= number_format($p->getSale(), 2) ?>
-                                </div>
-                                <div class="original-price">
-                                    $<?= number_format($p->getPrice(), 2) ?>
+                                <div class="price">
+                                    <div class="sale-price">
+                                        $<?= number_format($p->getSale(), 2) ?>
+                                    </div>
+                                    <div class="original-price">
+                                        $<?= number_format($p->getPrice(), 2) ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>

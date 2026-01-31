@@ -22,6 +22,9 @@
 
     $messagesRepo = new ContactMessageRepository($conn);
     $messages = $messagesRepo->getAllMessages();
+    $totalProducts = count($products);
+    $totalOrders = count($orders);
+    $totalMessages = count($messages);
 ?>
 <section class="dashboard">
 
@@ -49,15 +52,15 @@
             <div class="cards">
                 <div class="card">
                     <h3>Produktet</h3>
-                    <p>120</p>
+                    <p><?= $totalProducts ?></p>
                 </div>
                 <div class="card">
                     <h3>Porositë e fundit</h3>
-                    <p>15</p>
+                    <p><?= $totalOrders ?></p>
                 </div>
                 <div class="card">
                     <h3>Mesazhet</h3>
-                    <p>8</p>
+                    <p><?= $totalMessages ?></p>
                 </div>
             </div>
         </section>
@@ -144,7 +147,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Klienti (ID)</th>
-                        <th>Produktet</th>
                         <th>Totali</th>
                         <th>Statusi</th>
                         <th>Data</th>
@@ -157,7 +159,6 @@
                         <tr>
                             <td><?= $order['id'] ?></td>
                             <td><?= htmlspecialchars($order['user_id']) ?></td>
-                            <td></td>
                             <td><?= number_format($order['total'], 2) ?> €</td>
                             <td><?= htmlspecialchars($order['status']) ?></td>
                             <td><?= date('d/m/Y', strtotime($order['created_at'])) ?></td>

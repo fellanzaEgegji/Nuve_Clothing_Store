@@ -91,27 +91,52 @@ class ProductRepository {
         return $products;
     }
     public function getProductsOnSale() {
-    $stmt = $this->conn->prepare("SELECT * FROM products WHERE sale > 0");
-    $stmt->execute();
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $this->conn->prepare("SELECT * FROM products WHERE sale > 0");
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $products = [];
-    foreach ($rows as $row) {
-        $products[] = new Product(
-            $row['id'],
-            $row['name'],
-            $row['description'],
-            $row['price'],
-            $row['sale'],
-            $row['stock'],
-            $row['image_url'],
-            $row['created_by'],
-            $row['category']
-        );
+        $products = [];
+        foreach ($rows as $row) {
+            $products[] = new Product(
+                $row['id'],
+                $row['name'],
+                $row['description'],
+                $row['price'],
+                $row['sale'],
+                $row['stock'],
+                $row['image_url'],
+                $row['created_by'],
+                $row['category']
+            );
+        }
+
+        return $products;
     }
+    public function searchProducts($search) {
+        $sql = "SELECT * FROM products WHERE name LIKE :search OR description LIKE :search";
+        $stmt = $this->conn->prepare($sql);
+        $searchTerm = "%$search%";
+        $stmt->bindValue(':search', $searchTerm, PDO::PARAM_STR);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    return $products;
-}
+        $products = [];
+        foreach ($results as $row) {
+            $products[] = new Product(
+                $row['id'],
+                $row['name'],
+                $row['description'],
+                $row['price'],
+                $row['sale'],
+                $row['stock'],
+                $row['image_url'],
+                $row['created_by'],
+                $row['category']
+            );
+        }
+
+        return $products;
+    }
 
 }
 ?>
