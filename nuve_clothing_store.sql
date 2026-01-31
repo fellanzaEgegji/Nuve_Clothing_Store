@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2026 at 02:42 PM
+-- Generation Time: Jan 31, 2026 at 04:34 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -85,7 +85,8 @@ INSERT INTO `orders` (`id`, `user_id`, `date`, `status`, `total`, `created_at`, 
 (17, 2, '2026-01-30 19:15:13', 'Në Proces', 19.00, '2026-01-30 19:15:13', '2026-01-30 19:15:13'),
 (20, 1, '2026-01-30 19:27:05', 'Në Proces', 38.00, '2026-01-30 19:27:05', '2026-01-30 19:27:05'),
 (21, 1, '2026-01-30 19:30:39', 'Anuluar', 19.00, '2026-01-30 19:30:39', '2026-01-31 12:15:31'),
-(22, 1, '2026-01-31 12:07:23', 'Në Proces', 114.00, '2026-01-31 12:07:23', '2026-01-31 12:07:23');
+(22, 1, '2026-01-31 12:07:23', 'Në Proces', 114.00, '2026-01-31 12:07:23', '2026-01-31 12:07:23'),
+(23, 1, '2026-01-31 15:38:58', 'Në Proces', 19.00, '2026-01-31 15:38:58', '2026-01-31 15:38:58');
 
 -- --------------------------------------------------------
 
@@ -117,7 +118,8 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price_at
 (14, 17, 1, 1, 19.00),
 (15, 20, 1, 2, 19.00),
 (16, 21, 1, 1, 19.00),
-(17, 22, 1, 6, 19.00);
+(17, 22, 1, 6, 19.00),
+(18, 23, 1, 1, 19.00);
 
 -- --------------------------------------------------------
 
@@ -166,7 +168,11 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `sale`, `stock`, `image_url`, `created_by`, `created_at`, `updated_at`, `category`) VALUES
 (1, 'Xhaketë me rrip', 'Produkt test', 19.00, 5.00, 100, 'library/product.jpg', 1, '2026-01-30 17:36:23', '2026-01-30 21:22:17', 'Uncategorized'),
-(4, 'Fustan blazer', 'Fustan Blazer 2 në 1', 40.00, 0.00, 66, 'uploads/1769857608_Fustan.webp', 1, '2026-01-31 11:06:48', '2026-01-31 11:06:48', 'Uncategorized');
+(4, 'Fustan blazer', 'Fustan Blazer 2 në 1', 40.00, 0.00, 66, 'uploads/1769857608_Fustan.webp', 1, '2026-01-31 11:06:48', '2026-01-31 11:06:48', 'Uncategorized'),
+(5, 'Xhaketë me rrip', 'Produkt test', 19.00, 5.00, 100, 'library/product.jpg', 1, '2026-01-31 14:01:09', '2026-01-31 14:01:09', 'Femra'),
+(7, 'Xhinse Bazike', 'Xhinse Bazike', 30.00, 0.00, 70, 'uploads/1769872549_jeans.webp', 1, '2026-01-31 15:15:49', '2026-01-31 15:15:49', '1'),
+(8, 'Xhinse Bazike', 'Xhinse Bazike', 30.00, 0.00, 0, 'uploads/1769872662_jeans.webp', 1, '2026-01-31 15:17:42', '2026-01-31 15:17:42', '1'),
+(9, 'Xhinse Bazike', 'Xhinse Bazike', 30.00, 0.00, 0, 'uploads/1769872938_jeans.webp', 1, '2026-01-31 15:22:18', '2026-01-31 15:22:18', 'Femra');
 
 -- --------------------------------------------------------
 
@@ -280,13 +286,13 @@ ALTER TABLE `contact_messages`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -298,7 +304,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `testimonials`
