@@ -2,6 +2,7 @@
     require_once 'session.php';
     require_once 'Database.php';
     require_once 'Testimonials.php';
+    require_once 'TestimonialController.php';
     $page_css = "testimonial.css";
     include_once 'header.php';
 
@@ -9,6 +10,9 @@
     $conn = $database->getConnection(); 
 
     $testimonialObj = new Testimonials($conn);
+    $controller = new TestimonialController($testimonialObj);
+
+    $result = $controller->handleRequest();
     $testimonials = $testimonialObj->getAll();
 ?>
 
@@ -26,20 +30,9 @@
 <section class="add-testimonial">
     <h2>Shto komentin tënd</h2>
     <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_testimonial'])) {
-        $name = trim($_POST['name']);
-        $text = trim($_POST['text']);
-
-        if (!empty($name) && !empty($text)) {
-            if ($testimonialObj->add($name, $text)) {
-                echo '<p style="color:green;">Koment u shtua me sukses!</p>';
-                $testimonials = $testimonialObj->getAll();
-            } else {
-                echo '<p style="color:red;">Diçka shkoi gabim, provoni përsëri.</p>';
-            }
-        } else {
-            echo '<p style="color:red;">Ju lutem plotësoni të gjitha fushat.</p>';
-        }
+    if ($result) {
+        $color = $result['success'] ? 'green' : 'red';
+        echo "<p style='color:$color;'>{$result['message']}</p>";
     }
     ?>
     <form method="POST">
