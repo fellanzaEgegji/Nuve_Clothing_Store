@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2026 at 11:17 AM
+-- Generation Time: Jan 31, 2026 at 02:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -84,7 +84,8 @@ INSERT INTO `orders` (`id`, `user_id`, `date`, `status`, `total`, `created_at`, 
 (16, 2, '2026-01-30 19:01:19', 'Në Proces', 38.00, '2026-01-30 19:01:19', '2026-01-30 19:01:19'),
 (17, 2, '2026-01-30 19:15:13', 'Në Proces', 19.00, '2026-01-30 19:15:13', '2026-01-30 19:15:13'),
 (20, 1, '2026-01-30 19:27:05', 'Në Proces', 38.00, '2026-01-30 19:27:05', '2026-01-30 19:27:05'),
-(21, 1, '2026-01-30 19:30:39', 'Në Proces', 19.00, '2026-01-30 19:30:39', '2026-01-30 19:30:39');
+(21, 1, '2026-01-30 19:30:39', 'Anuluar', 19.00, '2026-01-30 19:30:39', '2026-01-31 12:15:31'),
+(22, 1, '2026-01-31 12:07:23', 'Në Proces', 114.00, '2026-01-31 12:07:23', '2026-01-31 12:07:23');
 
 -- --------------------------------------------------------
 
@@ -115,7 +116,8 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price_at
 (13, 16, 1, 2, 19.00),
 (14, 17, 1, 1, 19.00),
 (15, 20, 1, 2, 19.00),
-(16, 21, 1, 1, 19.00);
+(16, 21, 1, 1, 19.00),
+(17, 22, 1, 6, 19.00);
 
 -- --------------------------------------------------------
 
@@ -154,15 +156,17 @@ CREATE TABLE `products` (
   `image_url` varchar(255) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `category` varchar(50) NOT NULL DEFAULT 'Uncategorized'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `price`, `sale`, `stock`, `image_url`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 'Xhaketë me rrip', 'Produkt test', 19.00, 5.00, 100, 'library/product.jpg', 1, '2026-01-30 17:36:23', '2026-01-30 21:22:17');
+INSERT INTO `products` (`id`, `name`, `description`, `price`, `sale`, `stock`, `image_url`, `created_by`, `created_at`, `updated_at`, `category`) VALUES
+(1, 'Xhaketë me rrip', 'Produkt test', 19.00, 5.00, 100, 'library/product.jpg', 1, '2026-01-30 17:36:23', '2026-01-30 21:22:17', 'Uncategorized'),
+(4, 'Fustan blazer', 'Fustan Blazer 2 në 1', 40.00, 0.00, 66, 'uploads/1769857608_Fustan.webp', 1, '2026-01-31 11:06:48', '2026-01-31 11:06:48', 'Uncategorized');
 
 -- --------------------------------------------------------
 
@@ -206,7 +210,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'test', 'testt', 'test@testmail.com', '$2y$10$MjU6WAOpWeKvbTybPyNmGe/v7ZHaEJNzMcI9iqwfspYPhjWhhKKt2', 'admin', '2026-01-30 16:37:48', '2026-01-30 19:07:33'),
+(1, 'test', 'testt', 'test@testmail.com', '$2y$10$pX3gQWeiHIK53ZpqpC7cO.j1v0m/JBtPxcRiSNJMbQ20nTa232Qem', 'admin', '2026-01-30 16:37:48', '2026-01-31 11:58:23'),
 (2, 'fellanza', 'egegji', 'fellanza.egegji@outlook.com', '$2y$10$Z8C5JfIFrpU5lDnYrcXaTuZECIQzMS5LxouWClbDhTdNDUTDYC1pS', 'customer', '2026-01-30 17:19:21', '2026-01-30 17:19:21'),
 (3, 'TEST', 'TESTT', 'test@email.com', '$2y$10$ETfGA3Uiw0/RLLWpBnlZOOdccUwc/LDgbZzRgCAY.oLmkm38hk.fC', 'customer', '2026-01-30 19:22:39', '2026-01-30 19:22:39');
 
@@ -276,13 +280,13 @@ ALTER TABLE `contact_messages`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -294,7 +298,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `testimonials`
