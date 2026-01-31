@@ -17,7 +17,23 @@ class ProductRepository {
         $sql = "SELECT * FROM products WHERE id=?";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row) {
+            return null;
+        }
+
+        return new Product(
+            $row['id'],
+            $row['name'],
+            $row['description'],
+            $row['price'],
+            $row['sale'],
+            $row['stock'],
+            $row['image_url'],
+            $row['created_by']
+        );
+
     }
 
     public function createProduct($name, $description, $price, $sale, $stock, $imageUrl, $createdBy) {

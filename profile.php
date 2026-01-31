@@ -6,6 +6,8 @@
     require_once 'OrderItem.php';
     require_once 'Database.php';
     require_once 'OrderRepository.php';
+    require_once 'ProductRepository.php';
+
     Session::start();
     if (!Session::isLoggedIn()){
         header("Location: login.php");
@@ -23,6 +25,7 @@
     $conn = $db->getConnection();
     $orderRepo = new OrderRepository($conn);
     $orders = $orderRepo->getOrdersByUserId($user->getId());
+    $productRepo = new ProductRepository($conn);
 
     $completed = 0;
     $inprocess = 0;
@@ -41,17 +44,73 @@
     }
 
     if(isset($_POST['cancel-order-id'])) {
-    $cancelId = $_POST['cancel-order-id'];
-    foreach($orders as $order) {
-        if($order->getId() == $cancelId) {
-            $order->cancel();
+        $cancelId = $_POST['cancel-order-id'];
+        $orderRepo->cancelOrder($cancelId);
+
+        header("Location: profile.php");
+        exit;
+    }
+    if(isset($_POST['repeat-order-id'])) {
+        
+        $repeatId = $_POST['repeat-order-id'];
+
+        foreach($orders as $order) {
+            if($order->getId() == $repeatId) {
+
+                foreach($order->getItems() as $item) {
+                    $product = $productRepo->getProductById($item->getProduct()->getId());
+                
+                    $productId = $product->getId();
+                    $qty = $item->getQty();
+
+                    if(isset($_SESSION['cart'][$productId])) {
+                        $_SESSION['cart'][$productId]['quantity'] += $qty;
+                    } else {
+                        $_SESSION['cart'][$productId] = [
+                            'name' => $product->getName(),
+                            'brand' => $product->getBrand(),
+                            'price' => $product->getPrice(),
+                            'old_price' => $product->getOldPrice(),
+                            'size' => 'Default',
+                            'color' => 'Default',
+                            'image' => $product->getImageUrl(),
+                            'quantity' => $qty
+                        ];
+                    }
+                }
+            }
+        }
+
+        header("Location: cart.php");
+        exit;
+    }
+    if (isset($_POST['change_password'])) {
+        $current = $_POST['current_password'];
+        $new = $_POST['new_password'];
+        $confirm = $_POST['confirm_password'];
+
+        if ($new !== $confirm) {
+            echo "Fjalëkalimet nuk përputhen!";
+        } else {
+            $stmt = $conn->prepare("SELECT password FROM users WHERE id = :id");
+            $id = $user->getId();
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $hashedPassword = $row['password'];
+            if ($row && password_verify($current, $hashedPassword)) {
+                $hash = password_hash($new, PASSWORD_DEFAULT);
+                $update = $conn->prepare("UPDATE users SET password = :p WHERE id = :id");
+                $update->bindParam(':p', $hash);
+                $id = $user->getId();
+                $update->bindParam(':id', $id);
+                $update->execute();
+                echo "Fjalëkalimi u ndryshua me sukses!";
+            } else {
+                echo "Fjalëkalimi aktual nuk është i saktë!";
+            }
         }
     }
-    $_SESSION['orders'] = $orders;
-    header("Location: profile.php"); 
-    exit;
-}
-
 ?>
 <!-- Struktura e user card -->
         <section class="profile">
@@ -137,7 +196,7 @@
                 <div class="order-card">
                     <div class="order-header">
                         <div class="order-info">
-                            <div class="order-id"><?php echo $order->getId(); ?></div>
+                            <div class="order-id">Numri i porosisë: #<?php echo $order->getId(); ?></div>
                             <div class="order-date"><?php echo $order->getDate(); ?></div>
                         </div>
                         <div class="order-header-R">
@@ -164,7 +223,10 @@
                         </div>
                     
                         <div class="order-actions">
-                            <button class="order-button">Përsërit porosinë</button>
+                            <form method="POST">
+                                <input type="hidden" name="repeat-order-id" value="<?php echo $order->getId(); ?>">
+                                <button type="submit" class="order-button">Përsërit porosinë</button>
+                            </form>
                             <?php if($order->getStatus() === 'Në Proces'): ?>
                                 <form method="POST">
                                     <input type="hidden" name="cancel-order-id" value="<?php echo $order->getId(); ?>">

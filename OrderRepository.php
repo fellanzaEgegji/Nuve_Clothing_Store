@@ -38,7 +38,13 @@ class OrderRepository {
         $stmt = $this->conn->prepare("DELETE FROM orders WHERE id=?");
         $stmt->execute([$id]);
     }
-
+    public function cancelOrder($orderId) 
+    {
+        $sql = "UPDATE orders SET status = 'Anuluar' WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $orderId);
+        return $stmt->execute();
+    }
 
     public function save(Order $order) {
 
