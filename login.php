@@ -1,22 +1,16 @@
 <?php
     require_once 'session.php';
     require_once 'Auth.php';
+    require_once 'LoginForm.php';
 
     Session::start();
-    $error = '';
+    $form = new LoginForm();
 
     if (isset($_POST['login'])) {
-
-    $email = $_POST['email'] ?? '';
-    $password    = $_POST['password'] ?? '';
-    $loginSuccess = Auth::login($email, $password);
-    if ($loginSuccess) {
+    if ($form->handleSubmit($_POST)) {
         header("Location: index.php");
         exit;
-    } else {
-        echo "Email ose fjalëkalim i gabuar!";
     }
-
 }
     $page_css = "login.css";
     include_once 'header.php';

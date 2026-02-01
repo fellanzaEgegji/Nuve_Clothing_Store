@@ -1,31 +1,16 @@
 <?php
     require_once 'session.php';
     require_once 'Auth.php';
-
+    require_once 'RegisterForm.php';
+    
     Session::start();
+   $form = new RegisterForm(); 
 
+    
     if (isset($_POST['submit'])) {
-
-    $emri      = $_POST['emri'] ?? '';
-    $mbiemri   = $_POST['mbiemri'] ?? '';
-    $email     = $_POST['email'] ?? '';
-    $password  = $_POST['password'] ?? '';
-    $confirm   = $_POST['confirm'] ?? '';
-
-    if (!empty($emri) && !empty($mbiemri) && !empty($email) 
-        && !empty($password) && !empty($confirm)) {
-
-        $result = Auth::register($emri, $mbiemri, $email, $password, $confirm);
-
-        if ($result === true) {
-            header("Location: login.php");
-            exit;
-        } else {
-            $error = $result;
-        }
-
-    } else {
-        $error = "Ju lutem plotësoni të gjitha fushat!";
+    if ($form->handleSubmit($_POST)) {
+        header("Location: login.php");
+        exit;
     }
 }
 
