@@ -270,19 +270,41 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* Responsive 
+ /*Responsive */
 @media (max-width: 900px) {
     .product-details {
         flex-direction: column;
         align-items: center;
+        padding: 30px;
+        gap: 30px;
     }
     .product-info {
         max-width: 100%;
+        text-align: center;
     }
     .product-details img {
         max-width: 100%;
     }
-}*/
+}
+@media (max-width: 500px) {
+    .product-details-container {
+        padding: 60px 15px;
+    }
+    .product-details {
+        padding: 20px;
+        border-radius: 15px;
+    }
+    .product-info h1 {
+        font-size: 1.8rem;
+    }
+    .product-info p {
+        font-size: 0.95rem;
+    }
+    .add-to-cart {
+        padding: 12px 25px;
+        font-size: 0.95rem;
+    }
+}
 
 /* Stilizimi i footer-it */
 .footer {

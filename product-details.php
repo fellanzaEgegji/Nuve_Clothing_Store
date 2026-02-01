@@ -43,7 +43,6 @@ require_once 'header.php';
                     <input type="hidden" name="old_price" value="<?= $product->getPrice() ?>">
                     <input type="hidden" name="image" value="<?= htmlspecialchars($product->getImageUrl()) ?>">
                     <input type="hidden" name="category" value="<?= htmlspecialchars($product->getCategory()) ?>">
-                    <input type="hidden" name="size" value="S"> <!-- Default size, mund ta bësh dropdown më vonë -->
                     <input type="hidden" name="quantity" value="1">
                 <button type="submit" name="add_to_cart" class="add-to-cart">Shto në Shportë</button>
 </form>
