@@ -284,7 +284,44 @@
 .hamburger{
     order: 3;
 }
+.header .search-form {
+    margin-left: 10px;
+    position: relative;
+    background: transparent;
+    padding: 0;
+}
+.header .search-form input {
+    width: 0;
+    opacity: 0;
+    padding: 0;
+    border-radius: 20px;
+    border: none;
+    transition: all 0.3s ease;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 2000;
+}
+.header .search-form input:focus {
+    width: 130px;
+    opacity: 1;
+    padding: 8px 12px;
+}
+.header .search-form button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 2001;
+}
 
+.header .search-form button img {
+    width: 22px;
+    height: 22px;
+}
 .footer .container {
     flex-direction: column;
     margin: 20px 30px;
