@@ -2,85 +2,98 @@
 require_once 'session.php';
 require_once 'Database.php';
 require_once 'ProductRepository.php';
+
 Session::start();
+
+class ProductController {
+    private $productRepo;
+    private $userId;
+
+    public function __construct(ProductRepository $repo, $userId) {
+        $this->productRepo = $repo;
+        $this->userId = $userId;
+    }
+
+    public function handleRequest() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $action = $_POST['action'] ?? null;
+
+            switch ($action) {
+                case 'create':
+                    $this->createProduct($_POST, $_FILES);
+                    break;
+                case 'update':
+                    $this->updateProduct($_POST, $_FILES);
+                    break;
+                case 'delete':
+                    $this->deleteProduct($_POST['id'] ?? null);
+                    break;
+            }
+        }
+        // fallback
+        header("Location: dashboard.php#products");
+        exit;
+    }
+
+    private function createProduct($data, $files) {
+        $imageUrl = $this->handleImageUpload($files['image'] ?? null);
+        $this->productRepo->createProduct(
+            $data['name'] ?? '',
+            $data['description'] ?? '',
+            $data['price'] ?? 0,
+            $data['sale'] ?? 0,
+            $data['stock'] ?? 0,
+            $imageUrl,
+            $this->userId,
+            $data['category'] ?? 'Tjetër'
+        );
+    }
+
+    private function updateProduct($data, $files) {
+        $imageUrl = $data['existing_image'] ?? null;
+        if (!empty($files['image']['name'])) {
+            $imageUrl = $this->handleImageUpload($files['image']);
+        }
+
+        $this->productRepo->updateProduct(
+            $data['id'],
+            $data['name'] ?? '',
+            $data['description'] ?? '',
+            $data['price'] ?? 0,
+            $data['sale'] ?? 0,
+            $data['stock'] ?? 0,
+            $imageUrl,
+            $this->userId,
+            $data['category'] ?? 'Tjetër'
+        );
+    }
+
+    private function deleteProduct($id) {
+        if ($id) {
+            $this->productRepo->deleteProduct($id);
+        }
+    }
+
+    private function handleImageUpload($file) {
+        if ($file && !empty($file['name'])) {
+            $targetDir = "uploads/";
+            if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
+
+            $fileName = time() . "_" . basename($file['name']);
+            $targetFile = $targetDir . $fileName;
+
+            move_uploaded_file($file['tmp_name'], $targetFile);
+            return $targetFile;
+        }
+        return null;
+    }
+}
+
 // DB connection
 $db = new Database();
 $conn = $db->getConnection();
 $productRepo = new ProductRepository($conn);
 
-// Vetëm POST
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: dashboard.php");
-    exit;
-}
+$controller = new ProductController($productRepo, $_SESSION['user_id'] ?? 1);
+$controller->handleRequest();
 
-$action = $_POST['action'] ?? null;
-
-// CREATE
-if ($action === 'create') {
-    $name = $_POST['name'] ?? '';
-    $description = $_POST['description'] ?? '';
-    $price = $_POST['price'] ?? 0;
-    $sale = $_POST['sale'] ?? 0;
-    $stock = $_POST['stock'] ?? 0;
-    $createdBy = $_SESSION['user_id'] ?? 1;
-    $category = $_POST['category'] ?? 'Tjetër';
-
-    // Upload image
-    $imageUrl = null;
-    if (!empty($_FILES['image']['name'])) {
-        $targetDir = "uploads/";
-        if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
-
-        $fileName = time() . "_" . basename($_FILES['image']['name']);
-        $targetFile = $targetDir . $fileName;
-
-        move_uploaded_file($_FILES['image']['tmp_name'], $targetFile);
-        $imageUrl = $targetFile;
-    }
-
-    $productRepo->createProduct($name, $description, $price, $sale, $stock, $imageUrl, $createdBy, $category);
-    header("Location: dashboard.php#products");
-    exit;
-}
-
-// UPDATE
-if ($action === 'update') {
-    $id = $_POST['id'];
-    $name = $_POST['name'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-    $sale = $_POST['sale'];
-    $stock = $_POST['stock'];
-    $createdBy = $_SESSION['user_id'] ?? 1;
-    $imageUrl = $_POST['existing_image'] ?? null;
-    $category = $_POST['category'] ?? 'Tjetër';
-
-    if (!empty($_FILES['image']['name'])) {
-        $targetDir = "uploads/";
-        if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
-
-        $fileName = time() . "_" . basename($_FILES['image']['name']);
-        $targetFile = $targetDir . $fileName;
-
-        move_uploaded_file($_FILES['image']['tmp_name'], $targetFile);
-        $imageUrl = $targetFile;
-    }
-
-    $productRepo->updateProduct($id, $name, $description, $price, $sale, $stock, $imageUrl, $createdBy, $category);
-    header("Location: dashboard.php#products");
-    exit;
-}
-
-// DELETE
-if ($action === 'delete') {
-    $id = $_POST['id'];
-    $productRepo->deleteProduct($id);
-    header("Location: dashboard.php#products");
-    exit;
-}
-
-// fallback
-header("Location: dashboard.php");
-exit;
-?>
